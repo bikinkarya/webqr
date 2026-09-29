@@ -23,6 +23,30 @@
         .glow-effect {
             box-shadow: 0 0 50px -10px rgba(99, 102, 241, 0.3);
         }
+        /* Style Tambahan Slider Drag & Zoom Gambar */
+        .drag-slider {
+            cursor: grab;
+            user-select: none;
+            -webkit-user-select: none;
+            scroll-behavior: smooth;
+        }
+        .drag-slider:active {
+            cursor: grabbing;
+        }
+        .drag-slider::-webkit-scrollbar {
+            height: 6px;
+        }
+        .drag-slider::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 8px;
+        }
+        .drag-slider::-webkit-scrollbar-thumb {
+            background: #312e81;
+            border-radius: 8px;
+        }
+        .drag-slider::-webkit-scrollbar-thumb:hover {
+            background: #4338ca;
+        }
     </style>
 </head>
 <body class="bg-slate-950 text-slate-100 antialiased selection:bg-indigo-500 selection:text-white">
@@ -42,6 +66,7 @@
             <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
                 <a href="#masalah" class="hover:text-indigo-400 transition">Masalah</a>
                 <a href="#solusi" class="hover:text-indigo-400 transition">Solusi</a>
+                <a href="#penggunaan" class="hover:text-indigo-400 transition">Penggunaan</a>
                 <a href="#manfaat" class="hover:text-indigo-400 transition">Manfaat</a>
                 <a href="#analitik" class="hover:text-indigo-400 transition">Analitik</a>
             </div>
@@ -175,6 +200,44 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- SECTION BARU: Untuk Siapa QR Code Ini (Kategori Produk Custom) -->
+    <section id="penggunaan" class="py-20 bg-slate-900/40 border-b border-slate-800/60 scroll-mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <h2 class="text-xs font-bold text-indigo-400 uppercase tracking-widest mb-3">Kustomisasi Media Cetak</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold text-white mb-4">Untuk Siapa Smart QR Code Ini?</p>
+                <p class="text-slate-400 text-sm">Temukan berbagai bentuk produk fisik yang dapat diintegrasikan dengan barcode pintar interaktif Anda.</p>
+            </div>
+
+            <!-- TAB NAVIGASI KATEGORI -->
+            <div class="flex flex-wrap justify-center gap-3 mb-10">
+                <button onclick="switchCategory('lifestyle')" id="btn-lifestyle" class="tab-category-btn px-6 py-2.5 rounded-full text-sm font-semibold border transition-all duration-300 bg-indigo-600 border-indigo-500 text-white shadow-lg shadow-indigo-600/30">
+                    <i class="fa-solid fa-shirt mr-2"></i>Lifestyle
+                </button>
+                <button onclick="switchCategory('souvenir')" id="btn-souvenir" class="tab-category-btn px-6 py-2.5 rounded-full text-sm font-semibold border transition-all duration-300 bg-slate-900/80 border-slate-800 text-slate-400 hover:text-white hover:border-slate-700">
+                    <i class="fa-solid fa-gift mr-2"></i>Souvenir
+                </button>
+                <button onclick="switchCategory('percetakan')" id="btn-percetakan" class="tab-category-btn px-6 py-2.5 rounded-full text-sm font-semibold border transition-all duration-300 bg-slate-900/80 border-slate-800 text-slate-400 hover:text-white hover:border-slate-700">
+                    <i class="fa-solid fa-print mr-2"></i>Percetakan
+                </button>
+                <button onclick="switchCategory('bisnis')" id="btn-bisnis" class="tab-category-btn px-6 py-2.5 rounded-full text-sm font-semibold border transition-all duration-300 bg-slate-900/80 border-slate-800 text-slate-400 hover:text-white hover:border-slate-700">
+                    <i class="fa-solid fa-briefcase mr-2"></i>Bisnis
+                </button>
+            </div>
+
+            <!-- CONTAINER SLIDER PRODUCT (Dapat digeser mouse/drag & scroll horizontal) -->
+            <div class="relative overflow-hidden rounded-2xl p-2">
+                <div id="productGallerySlider" class="drag-slider flex gap-6 overflow-x-auto pb-6 pt-2 snap-x">
+                    <!-- Item galeri akan di-render secara otomatis oleh JavaScript di bawah -->
+                </div>
+            </div>
+            
+            <p class="text-center text-xs text-slate-500 mt-4">
+                <i class="fa-solid fa-hand-pointer mr-1"></i> Geser/drag dengan mouse untuk melihat produk lainnya. Arahkan kursor ke foto untuk memperbesar zoom.
+            </p>
         </div>
     </section>
 
@@ -324,7 +387,176 @@
         <p>&copy; 2026 Smart QR Code. Hak Cipta Dilindungi Undang-Undang.</p>
     </footer>
 
-    <!-- Script Pengiriman Form ke Google Sheets & Direct WA -->
+    <!-- SCRIPT PRODUK CUSTOM (KATEGORI, SLIDER DRAG, & EFEK ZOOM) -->
+    <script>
+        // DATA GAMBAR 4 KATEGORI (Anda bisa mengganti URL gambar & judul secara manual di sini)
+        const productData = {
+            lifestyle: [
+                {
+                    title: "Gantungan Kunci Akrilik",
+                    desc: "Keychain timbul interaktif menuju pesan WhatsApp atau kontak darurat.",
+                    img: "https://images.unsplash.com/photo-1544816155-12df9643f363?q=80&w=600&auto=format&fit=crop"
+                },
+                {
+                    title: "Kaos & Apparel Custom",
+                    desc: "Sablon Barcode estetik di pakaian menuju portofolio atau sosmed.",
+                    img: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=600&auto=format&fit=crop"
+                },
+                {
+                    title: "Tumbler Stainless",
+                    desc: "Grafir/Cetak QR pada botol minum harian untuk identitas pemilik.",
+                    img: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?q=80&w=600&auto=format&fit=crop"
+                },
+                {
+                    title: "Topi Streetwear",
+                    desc: "Aksesori fashion modern dengan bordiran QR terhubung ke komunitas.",
+                    img: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?q=80&w=600&auto=format&fit=crop"
+                }
+            ],
+            souvenir: [
+                {
+                    title: "Plakat & Vandel Akrilik",
+                    desc: "Plakat penghargaan terhubung ke video dokumentasi ucapan.",
+                    img: "https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=600&auto=format&fit=crop"
+                },
+                {
+                    title: "Undangan Pernikahan",
+                    desc: "Cetak barcode lokasi Google Maps & fitur konfirmasi RSVP.",
+                    img: "https://images.unsplash.com/photo-1528821128474-27f963b072b7?q=80&w=600&auto=format&fit=crop"
+                },
+                {
+                    title: "Mug Keramik Custom",
+                    desc: "Souvenir nikah/event dengan pesan unik tersimpan di dalam QR.",
+                    img: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=600&auto=format&fit=crop"
+                },
+                {
+                    title: "Pin & Lanyard Event",
+                    desc: "ID Card / Badge peserta seminar untuk scan absensi cepat.",
+                    img: "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=600&auto=format&fit=crop"
+                }
+            ],
+            percetakan: [
+                {
+                    title: "Brosur & Flier Promo",
+                    desc: "Brosur bebas ganti isi promo harian tanpa cetak ulang materi.",
+                    img: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?q=80&w=600&auto=format&fit=crop"
+                },
+                {
+                    title: "Label Stiker Kemasan",
+                    desc: "Stiker packaging produk ke link WhatsApp Order / Sertifikasi BPOM.",
+                    img: "https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=600&auto=format&fit=crop"
+                },
+                {
+                    title: "Standing Banner",
+                    desc: "X-Banner raksasa depan toko untuk mengarahkan pembeli ke katalog.",
+                    img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop"
+                },
+                {
+                    title: "Buku Menu Resto",
+                    desc: "Buku menu interaktif yang langsung terhubung ke sistem pemesanan.",
+                    img: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=600&auto=format&fit=crop"
+                }
+            ],
+            bisnis: [
+                {
+                    title: "Kartu Nama Digital NFC/QR",
+                    desc: "Satu kartu bisnis elegan berisi seluruh info sosmed & portofolio.",
+                    img: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=600&auto=format&fit=crop"
+                },
+                {
+                    title: "Standee Akrilik Meja",
+                    desc: "Display meja kasir/restoran untuk rating Google Maps & Wi-Fi.",
+                    img: "https://images.unsplash.com/photo-1556742049-0a670f4a4591?q=80&w=600&auto=format&fit=crop"
+                },
+                {
+                    title: "Seragam Sales & Staf",
+                    desc: "Baju kerja ber-QR untuk interaksi bisnis instan dengan calon klien.",
+                    img: "https://images.unsplash.com/photo-1572021335469-31706a17aaef?q=80&w=600&auto=format&fit=crop"
+                },
+                {
+                    title: "Stiker Mobil Operasional",
+                    desc: "Promosi bergerak pada armada kendaraan dinas perusahaan.",
+                    img: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=600&auto=format&fit=crop"
+                }
+            ]
+        };
+
+        // Fungsi Render Kartu Produk ke Slider
+        function renderCategoryCards(categoryKey) {
+            const slider = document.getElementById('productGallerySlider');
+            const items = productData[categoryKey] || [];
+            
+            slider.innerHTML = items.map(item => `
+                <div class="snap-start flex-shrink-0 w-72 sm:w-80 glass-card rounded-2xl overflow-hidden border border-slate-800 hover:border-indigo-500/50 transition-all duration-300 group">
+                    <div class="w-full h-48 overflow-hidden relative">
+                        <img src="${item.img}" 
+                             alt="${item.title}" 
+                             class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-125 pointer-events-none">
+                        <div class="absolute inset-0 bg-slate-950/20 group-hover:bg-transparent transition-colors"></div>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="font-bold text-white text-base mb-1.5 group-hover:text-indigo-400 transition-colors">${item.title}</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed">${item.desc}</p>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Reset posisi scroll ke paling kiri saat ganti kategori
+            slider.scrollLeft = 0;
+        }
+
+        // Fungsi Pindah Tab Kategori & Style Tombol Aktif
+        function switchCategory(categoryKey) {
+            const buttons = document.querySelectorAll('.tab-category-btn');
+            buttons.forEach(btn => {
+                btn.className = "tab-category-btn px-6 py-2.5 rounded-full text-sm font-semibold border transition-all duration-300 bg-slate-900/80 border-slate-800 text-slate-400 hover:text-white hover:border-slate-700";
+            });
+
+            const activeBtn = document.getElementById(`btn-${categoryKey}`);
+            if (activeBtn) {
+                activeBtn.className = "tab-category-btn px-6 py-2.5 rounded-full text-sm font-semibold border transition-all duration-300 bg-indigo-600 border-indigo-500 text-white shadow-lg shadow-indigo-600/30";
+            }
+
+            renderCategoryCards(categoryKey);
+        }
+
+        // Fitur Mouse Drag & Scroll pada Slider
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCategoryCards('lifestyle'); // Load default kategori Lifestyle
+
+            const slider = document.getElementById('productGallerySlider');
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            slider.addEventListener('mousedown', (e) => {
+                isDown = true;
+                slider.classList.add('cursor-grabbing');
+                startX = e.pageX - slider.offsetLeft;
+                scrollLeft = slider.scrollLeft;
+            });
+
+            slider.addEventListener('mouseleave', () => {
+                isDown = false;
+                slider.classList.remove('cursor-grabbing');
+            });
+
+            slider.addEventListener('mouseup', () => {
+                isDown = false;
+                slider.classList.remove('cursor-grabbing');
+            });
+
+            slider.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - slider.offsetLeft;
+                const walk = (x - startX) * 2; // Kecepatan Drag
+                slider.scrollLeft = scrollLeft - walk;
+            });
+        });
+    </script>
+
+    <!-- Script Pengiriman Form ke Google Sheets & Direct WA (Rumus Bawaan Anda) -->
     <script>
         // 1. URL Apps Script Database Leads Smart
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxZDrVyLA8q4ky-Fg0qq64njfIvVWt8FshOBtCTtL9wQApdqiJgOy4mJytap3NdvUuc/exec"; 
