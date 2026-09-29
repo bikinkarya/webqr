@@ -3,130 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart QR Code - Ubah QR Code Biasa Jadi Alat Penjualan Cerdas</title>
+    <title>SmartQR - QR Code Dinamis Cerdas Generasi Baru</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
+    <!-- Google Fonts: Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- FontAwesome -->
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-        .gradient-bg {
-            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
-        }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        .glow-effect {
-            box-shadow: 0 0 50px -10px rgba(99, 102, 241, 0.3);
-        }
-        /* Style Tambahan Slider Drag & Zoom Gambar */
-        .drag-slider {
-            cursor: grab;
-            user-select: none;
-            -webkit-user-select: none;
-            scroll-behavior: smooth;
-        }
-        .drag-slider:active {
-            cursor: grabbing;
-        }
-        .drag-slider::-webkit-scrollbar {
-            height: 6px;
-        }
-        .drag-slider::-webkit-scrollbar-track {
-            background: rgba(15, 23, 42, 0.6);
-            border-radius: 8px;
-        }
-        .drag-slider::-webkit-scrollbar-thumb {
-            background: #312e81;
-            border-radius: 8px;
-        }
-        .drag-slider::-webkit-scrollbar-thumb:hover {
-            background: #4338ca;
-        }
-    </style>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-slate-950 text-slate-100 antialiased selection:bg-indigo-500 selection:text-white">
+<body class="bg-[#0b0f19] text-slate-100 antialiased selection:bg-indigo-500 selection:text-white">
 
-    <!-- Navbar -->
-    <nav class="fixed top-0 left-0 right-0 z-50 glass-card bg-slate-950/80 backdrop-blur-md border-b border-slate-800">
+    <!-- Header & Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-card border-b border-slate-800/80 bg-[#0b0f19]/80 backdrop-blur-md">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center font-bold text-xl shadow-lg shadow-indigo-500/30">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center font-bold text-xl shadow-lg shadow-indigo-500/30">
                     <i class="fa-solid fa-qrcode text-white"></i>
                 </div>
-                <span class="font-bold text-xl tracking-tight bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
+                <span class="font-bold text-xl tracking-tight text-white">
                     Smart<span class="text-indigo-400">QR</span>
                 </span>
             </div>
-            <!-- Nav Menu Links -->
-            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
+
+            <!-- Desktop Menu -->
+            <div class="hidden lg:flex items-center space-x-6 text-sm font-medium text-slate-300">
+                <a href="#beranda" class="hover:text-indigo-400 transition">Beranda</a>
                 <a href="#masalah" class="hover:text-indigo-400 transition">Masalah</a>
+                <a href="#keunggulan" class="hover:text-indigo-400 transition">Keunggulan</a>
+                <a href="#untuk-siapa" class="hover:text-indigo-400 transition">Untuk Siapa</a>
                 <a href="#solusi" class="hover:text-indigo-400 transition">Solusi</a>
-                <a href="#penggunaan" class="hover:text-indigo-400 transition">Penggunaan</a>
-                <a href="#manfaat" class="hover:text-indigo-400 transition">Manfaat</a>
+                <a href="#demo" class="hover:text-indigo-400 transition">Demo</a>
                 <a href="#analitik" class="hover:text-indigo-400 transition">Analitik</a>
             </div>
-            <a href="#form-pemesanan" class="px-5 py-2.5 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-sm transition-all shadow-lg shadow-indigo-600/30 hover:scale-105 active:scale-95">
-                Pesan Sekarang
-            </a>
+
+            <div class="hidden lg:flex items-center space-x-4">
+                <a href="#form-pemesanan" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-semibold text-sm transition-all shadow-lg shadow-indigo-600/30 hover:scale-105">
+                    Pesan Sekarang
+                </a>
+            </div>
+
+            <!-- Mobile Hamburger Button -->
+            <button id="mobileMenuBtn" class="lg:hidden text-slate-300 hover:text-white text-2xl focus:outline-none">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobileMenu" class="hidden lg:hidden border-t border-slate-800 bg-[#0b0f19] px-4 pt-4 pb-6 space-y-3 text-slate-300 text-sm font-medium">
+            <a href="#beranda" class="mobile-link block hover:text-indigo-400 py-1">Beranda</a>
+            <a href="#masalah" class="mobile-link block hover:text-indigo-400 py-1">Masalah</a>
+            <a href="#keunggulan" class="mobile-link block hover:text-indigo-400 py-1">Keunggulan</a>
+            <a href="#untuk-siapa" class="mobile-link block hover:text-indigo-400 py-1">Untuk Siapa</a>
+            <a href="#solusi" class="mobile-link block hover:text-indigo-400 py-1">Solusi</a>
+            <a href="#demo" class="mobile-link block hover:text-indigo-400 py-1">Demo</a>
+            <a href="#analitik" class="mobile-link block hover:text-indigo-400 py-1">Analitik</a>
+            <a href="#form-pemesanan" class="mobile-link block w-full text-center py-3 rounded-xl bg-indigo-600 text-white font-semibold mt-2">Pesan Sekarang</a>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden gradient-bg">
-        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-600/20 rounded-full blur-[120px] pointer-events-none"></div>
+    <!-- SECTION 1: HERO SECTION -->
+    <section id="beranda" class="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden hero-gradient">
+        <div class="glow-orb w-[500px] h-[500px] bg-indigo-600/20 -top-20 left-1/2 -translate-x-1/2"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
                 <div>
-                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold uppercase tracking-wider mb-6">
-                        <span class="w-2 h-2 rounded-full bg-indigo-400 animate-ping"></span>
-                        Teknologi QR Code Generasi Baru
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold uppercase tracking-wider mb-6">
+                        <span class="w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></span>
+                        Next-Gen Dynamic QR Technology
                     </div>
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.15] mb-6">
-                        Ubah QR Code Biasa Jadi <span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Alat Penjualan Cerdas</span>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-[1.15] mb-6">
+                        QR Biasa Berhenti di Link. <span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Smart QR Terus Bergerak.</span>
                     </h1>
-                    <p class="text-slate-400 text-lg sm:text-xl leading-relaxed mb-8 max-w-xl">
-                        Bebas ganti target link kapan saja tanpa cetak ulang, pantau statistik scan real-time, dan tingkatkan konversi bisnis Anda hingga 3x lipat.
+                    <p class="text-slate-400 text-base sm:text-lg leading-relaxed mb-8 max-w-xl">
+                        Smart QR adalah solusi QR Code dinamis yang bisa Anda ubah kapan saja tanpa perlu mencetak ulang. Cocok untuk percetakan, merchandise, souvenir, digital print, banner, hingga cafe dan restoran.
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="#form-pemesanan" class="inline-flex items-center justify-center px-8 py-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-base transition-all shadow-xl shadow-indigo-600/30 hover:-translate-y-0.5">
-                            Pesan Smart QR
+                        <a href="#form-pemesanan" class="inline-flex items-center justify-center px-8 py-4 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-semibold transition-all shadow-xl shadow-indigo-600/30 hover:-translate-y-0.5">
+                            Pesan Sekarang
                             <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
                         </a>
-                        <a href="#form-pemesanan" class="inline-flex items-center justify-center px-8 py-4 rounded-xl glass-card hover:bg-slate-800/80 text-slate-200 font-semibold text-base transition-all border border-slate-700">
-                            <i class="fa-brands fa-whatsapp text-emerald-400 text-lg mr-2"></i>
-                            Konsultasi Gratis
+                        <a href="#demo" class="inline-flex items-center justify-center px-8 py-4 rounded-xl glass-card hover:bg-slate-800/80 text-slate-200 font-semibold transition-all border border-slate-700">
+                            <i class="fa-solid fa-play text-indigo-400 mr-2 text-xs"></i>
+                            Lihat Demo
                         </a>
                     </div>
                 </div>
 
-                <!-- Preview Card Barcode Demo -->
+                <!-- Hero Visual Mockup -->
                 <div class="relative lg:ml-auto w-full max-w-md">
-                    <div class="glass-card rounded-2xl p-6 sm:p-8 border border-slate-800 glow-effect relative overflow-hidden">
-                        <div class="flex items-center justify-between pb-6 border-b border-slate-800/80">
-                            <div class="flex items-center gap-3">
-                                <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
-                                <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
-                                <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                    <div class="glass-card rounded-3xl p-6 border border-slate-800 glow-box relative overflow-hidden">
+                        <div class="relative bg-slate-900/90 rounded-2xl p-6 border border-slate-800 text-center">
+                            <!-- Mockup Akrilik Bening & QR -->
+                            <div class="w-48 h-48 mx-auto bg-white p-4 rounded-2xl shadow-2xl relative mb-4 flex items-center justify-center border-4 border-slate-700/50">
+                                <img id="heroQrCode" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://smart-qr-code-iota.vercel.app/scan.html?id=NEWS5M&color=0b0f19" alt="SmartQR Acrylic Display" class="w-full h-full rounded-lg">
                             </div>
-                            <span class="text-xs text-slate-400 font-mono">Live Demo (Rotasi 5 Menit)</span>
-                        </div>
-                        <div class="py-8 flex flex-col items-center justify-center text-center">
-                            <div class="p-4 bg-white rounded-2xl shadow-2xl mb-6 relative group">
-                                <img id="qrDemoNewsImg" 
-                                     src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://smart-qr-code-iota.vercel.app/scan.html?id=NEWS5M&color=0f172a" 
-                                     alt="Smart QR Code NEWS5M" 
-                                     class="w-44 h-44 rounded-lg">
-                                <div class="absolute inset-0 bg-indigo-600/90 rounded-2xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 backdrop-blur-sm cursor-pointer">
-                                    <span class="text-white text-xs font-semibold px-3 py-1.5 rounded-full bg-slate-900/80">Scan & Uji Coba</span>
-                                </div>
-                            </div>
-                            <h3 class="text-white font-bold text-lg mb-1">Dynamic News QR Code</h3>
-                            <p class="text-xs text-slate-400 max-w-xs">Scan QR ini! Artikel berita teknologi, bisnis, dan hiburan akan otomatis berganti setiap 5 menit tanpa mengubah bentuk QR.</p>
+                            <span class="inline-block px-3 py-1 bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 rounded-full text-xs font-mono font-medium mb-2">
+                                <i class="fa-solid fa-layer-group mr-1"></i> Standee Akrilik Bening Meja
+                            </span>
+                            <p class="text-xs text-slate-400">Terhubung langsung dengan Panel Kontrol Cloud SmartQR</p>
                         </div>
                     </div>
                 </div>
@@ -134,207 +112,280 @@
         </div>
     </section>
 
-    <!-- SECTION 1: Masalah (Pain Points) -->
-    <section id="masalah" class="py-20 bg-slate-900/50 border-y border-slate-800/60 scroll-mt-20">
+    <!-- SECTION 2: MASALAH (Pain Points) -->
+    <section id="masalah" class="py-20 bg-[#090c14] border-y border-slate-800/60 scroll-mt-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-2xl mx-auto mb-16">
-                <h2 class="text-xs font-bold text-indigo-400 uppercase tracking-widest mb-3">Latar Belakang</h2>
-                <p class="text-3xl sm:text-4xl font-extrabold text-white">Apakah Bisnis Anda Mengalami Masalah Ini?</p>
+                <h2 class="text-xs font-bold text-indigo-400 uppercase tracking-widest mb-3">Tantangan QR Code Konvensional</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold text-white">Mengapa QR Code Biasa Merugikan Bisnis Anda?</p>
             </div>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="glass-card p-8 rounded-2xl hover:border-indigo-500/40 transition">
-                    <div class="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 flex items-center justify-center mb-6 text-xl">
-                        <i class="fa-solid fa-file-invoice-dollar"></i>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="glass-card p-6 rounded-2xl border border-slate-800/80 hover:border-red-500/40 transition">
+                    <div class="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 flex items-center justify-center mb-5 text-xl">
+                        <i class="fa-solid fa-link-slash"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-3">Biaya Cetak Membengkak</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        Sudah cetak ribuan brosur, packaging, atau kartu nama, tapi link WA / promo berubah? Anda terpaksa cetak ulang dari awal.
-                    </p>
+                    <h3 class="text-lg font-bold text-white mb-2">Link Mati & Kaku</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed">URL tidak bisa diubah begitu barcode selesai dicetak. Jika website berganti, QR fisik langsung tidak berguna.</p>
                 </div>
-                <div class="glass-card p-8 rounded-2xl hover:border-indigo-500/40 transition">
-                    <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center mb-6 text-xl">
-                        <i class="fa-solid fa-ban"></i>
+                <div class="glass-card p-6 rounded-2xl border border-slate-800/80 hover:border-amber-500/40 transition">
+                    <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center mb-5 text-xl">
+                        <i class="fa-solid fa-money-bill-wave"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-3">Tampilan Kaku & Membosankan</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        QR Code biasa berwarna hitam-putih tanpa logo tidak menarik perhatian pelanggan dan menurunkan minat scan hingga 50%.
-                    </p>
+                    <h3 class="text-lg font-bold text-white mb-2">Pemborosan Biaya Cetak</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed">Setiap ada perubahan promo, nomor WA, atau lokasi bisnis, Anda harus membuang cetakan lama dan cetak ulang dari awal.</p>
                 </div>
-                <div class="glass-card p-8 rounded-2xl hover:border-indigo-500/40 transition">
-                    <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400 flex items-center justify-center mb-6 text-xl">
-                        <i class="fa-solid fa-eye-slash"></i>
+                <div class="glass-card p-6 rounded-2xl border border-slate-800/80 hover:border-purple-500/40 transition">
+                    <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400 flex items-center justify-center mb-5 text-xl">
+                        <i class="fa-solid fa-chart-line-down"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-3">Buta Terhadap Data Scan</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        Anda tidak pernah tahu berapa orang yang scan, kapan jam teramai, hingga lokasi mana yang memberikan hasil penjualan terbaik.
-                    </p>
+                    <h3 class="text-lg font-bold text-white mb-2">Tanpa Data Analitik</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed">Anda buta terhadap performa pemasaran. Tidak ada rekaman berapa orang yang melakukan scan atau dari mana mereka berasal.</p>
+                </div>
+                <div class="glass-card p-6 rounded-2xl border border-slate-800/80 hover:border-blue-500/40 transition">
+                    <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center mb-5 text-xl">
+                        <i class="fa-solid fa-lock"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Tidak Fleksibel</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed">Sangat terbatas untuk promosi dinamis seperti event musiman, pergantian katalog produk, atau rotasi menu resto harian.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SECTION 2: Solusi -->
+    <!-- SECTION 3: KEUNGGULAN SMARTQR -->
+    <section id="keunggulan" class="py-20 border-b border-slate-800/60 scroll-mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-xs font-bold text-indigo-400 uppercase tracking-widest mb-3">Fitur & Solusi Superior</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold text-white">Mengapa Memilih SmartQR?</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="glass-card p-8 rounded-2xl border border-slate-800 hover:border-indigo-500/50 transition group">
+                    <div class="w-12 h-12 rounded-xl bg-indigo-600/20 text-indigo-400 flex items-center justify-center mb-6 text-xl border border-indigo-500/30 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-arrows-rotate"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Konten Dinamis</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Ubah tujuan target link QR Code kapan saja melalui cloud tanpa merubah bentuk fisik yang sudah terlanjur dicetak.</p>
+                </div>
+                <div class="glass-card p-8 rounded-2xl border border-slate-800 hover:border-purple-500/50 transition group">
+                    <div class="w-12 h-12 rounded-xl bg-purple-600/20 text-purple-400 flex items-center justify-center mb-6 text-xl border border-purple-500/30 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-chart-pie"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Analitik Lengkap</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Pantau secara akurat statistik jumlah scan, persebaran kota/lokasi, tipe perangkat pengguna (iOS/Android), hingga jam puncak scan.</p>
+                </div>
+                <div class="glass-card p-8 rounded-2xl border border-slate-800 hover:border-blue-500/50 transition group">
+                    <div class="w-12 h-12 rounded-xl bg-blue-600/20 text-blue-400 flex items-center justify-center mb-6 text-xl border border-blue-500/30 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-palette"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Desain Custom</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Sematkan logo bisnis, atur palet warna brand, serta tambahkan bingkai (frame Call to Action) agar menarik minat pelanggan.</p>
+                </div>
+                <div class="glass-card p-8 rounded-2xl border border-slate-800 hover:border-indigo-500/50 transition group">
+                    <div class="w-12 h-12 rounded-xl bg-indigo-600/20 text-indigo-400 flex items-center justify-center mb-6 text-xl border border-indigo-500/30 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-network-wired"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Multi-Link Direct</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Satu QR Code pintar mampu mengarahkan pelanggan ke berbagai tujuan digital seperti WhatsApp, Katalog, Website, atau Social Media.</p>
+                </div>
+                <div class="glass-card p-8 rounded-2xl border border-slate-800 hover:border-purple-500/50 transition group">
+                    <div class="w-12 h-12 rounded-xl bg-purple-600/20 text-purple-400 flex items-center justify-center mb-6 text-xl border border-purple-500/30 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-mobile-screen-button"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Mudah Digunakan</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Dapat diakses instan melalui kamera smartphone tanpa memerlukan aplikasi khusus tambahan bagi para pengunjung Anda.</p>
+                </div>
+                <div class="glass-card p-8 rounded-2xl border border-slate-800 hover:border-blue-500/50 transition group">
+                    <div class="w-12 h-12 rounded-xl bg-blue-600/20 text-blue-400 flex items-center justify-center mb-6 text-xl border border-blue-500/30 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-bullhorn"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Fleksibel Promosi</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Ideal untuk promosi kilat, flash sale jam tertentu, event tahunan, hingga pengalihan link darurat dalam hitungan detik.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: UNTUK SIAPA SMARTQR? -->
+    <section id="untuk-siapa" class="py-20 bg-[#090c14] border-b border-slate-800/60 scroll-mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <h2 class="text-xs font-bold text-indigo-400 uppercase tracking-widest mb-3">Segmentasi Penggunaan</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold text-white mb-4">SmartQR untuk Berbagai Jenis Usaha</p>
+                <p class="text-slate-400 text-sm">Pilih kategori di bawah untuk melihat aplikasi fisik SmartQR pada produk nyata.</p>
+            </div>
+
+            <!-- Tab Buttons -->
+            <div class="flex flex-wrap justify-center gap-3 mb-12">
+                <button onclick="switchTab('fashion')" id="tab-fashion" class="tab-btn px-6 py-2.5 rounded-full text-sm font-semibold border transition-all duration-300 bg-indigo-600 border-indigo-500 text-white shadow-lg shadow-indigo-600/30">
+                    <i class="fa-solid fa-shirt mr-2"></i>Fashion
+                </button>
+                <button onclick="switchTab('souvenir')" id="tab-souvenir" class="tab-btn px-6 py-2.5 rounded-full text-sm font-semibold border transition-all duration-300 bg-slate-900 border-slate-800 text-slate-400 hover:text-white">
+                    <i class="fa-solid fa-gift mr-2"></i>Souvenir
+                </button>
+                <button onclick="switchTab('bisnis')" id="tab-bisnis" class="tab-btn px-6 py-2.5 rounded-full text-sm font-semibold border transition-all duration-300 bg-slate-900 border-slate-800 text-slate-400 hover:text-white">
+                    <i class="fa-solid fa-briefcase mr-2"></i>Bisnis & Resto
+                </button>
+            </div>
+
+            <!-- Gallery Cards Container -->
+            <div id="galleryContainer" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Javascript akan mengisi card foto di sini secara dinamis -->
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: SOLUSI SMARTQR (Alur Kerja) -->
     <section id="solusi" class="py-20 border-b border-slate-800/60 scroll-mt-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-2xl mx-auto mb-16">
-                <h2 class="text-xs font-bold text-indigo-400 uppercase tracking-widest mb-3">Solusi Cerdas</h2>
-                <p class="text-3xl sm:text-4xl font-extrabold text-white">Satu Smart QR Code Untuk Semua Kebutuhan Pemasaran Anda</p>
+                <h2 class="text-xs font-bold text-indigo-400 uppercase tracking-widest mb-3">Cara Kerja Modern</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold text-white">Bagaimana SmartQR Membantu Bisnis Anda?</p>
             </div>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="flex items-start gap-5 p-6 rounded-2xl glass-card">
-                    <div class="w-12 h-12 rounded-xl bg-indigo-600/20 text-indigo-400 flex items-center justify-center flex-shrink-0 text-xl border border-indigo-500/30">
-                        <i class="fa-solid fa-rotate"></i>
-                    </div>
-                    <div>
-                        <h4 class="text-xl font-bold text-white mb-2">Target Link Dinamis</h4>
-                        <p class="text-sm text-slate-400 leading-relaxed">Ganti URL tujuan kapan saja dari dashboard tanpa mencetak ulang QR fisik. Sangat cocok untuk promo harian atau menu musiman.</p>
+
+            <div class="grid lg:grid-cols-3 gap-8 relative">
+                <!-- Step 1 -->
+                <div class="glass-card p-8 rounded-3xl border border-slate-800 relative">
+                    <div class="w-10 h-10 rounded-full bg-indigo-600 text-white font-bold flex items-center justify-center mb-6">1</div>
+                    <h3 class="text-xl font-bold text-white mb-3">Cetak QR Pada Produk Fisik</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">Sematkan SmartQR pada gantungan kunci akrilik, baju, brosur, banner, kemasan, atau meja restoran Anda.</p>
+                    <div class="p-3 bg-slate-950/60 rounded-xl border border-slate-800 text-xs text-indigo-300">
+                        <i class="fa-solid fa-check text-emerald-400 mr-1"></i> Cetak Sekali untuk Selamanya
                     </div>
                 </div>
-                <div class="flex items-start gap-5 p-6 rounded-2xl glass-card">
-                    <div class="w-12 h-12 rounded-xl bg-indigo-600/20 text-indigo-400 flex items-center justify-center flex-shrink-0 text-xl border border-indigo-500/30">
-                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                <!-- Step 2 -->
+                <div class="glass-card p-8 rounded-3xl border border-slate-800 relative">
+                    <div class="w-10 h-10 rounded-full bg-purple-600 text-white font-bold flex items-center justify-center mb-6">2</div>
+                    <h3 class="text-xl font-bold text-white mb-3">Atur Link Kapan Saja</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">Ganti tujuan QR melalui dashboard Cloud (misal: dari Katalog promo berganti ke direct WhatsApp Chat).</p>
+                    <div class="p-3 bg-slate-950/60 rounded-xl border border-slate-800 text-xs text-purple-300">
+                        <i class="fa-solid fa-bolt text-amber-400 mr-1"></i> Update Instan Tanpa Delay
                     </div>
-                    <div>
-                        <h4 class="text-xl font-bold text-white mb-2">Desain Custom Berlogo</h4>
-                        <p class="text-sm text-slate-400 leading-relaxed">Tambahkan logo brand, paduan warna identitas, dan pilihan bingkai (frame) menarik agar pelanggan terdorong untuk scan.</p>
+                </div>
+                <!-- Step 3 -->
+                <div class="glass-card p-8 rounded-3xl border border-slate-800 relative">
+                    <div class="w-10 h-10 rounded-full bg-pink-600 text-white font-bold flex items-center justify-center mb-6">3</div>
+                    <h3 class="text-xl font-bold text-white mb-3">Pelanggan Scan & Terhubung</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">Pengunjung melakukan scan kodenya dan langsung dialihkan ke halaman digital terkini beserta perekaman statistik.</p>
+                    <div class="p-3 bg-slate-950/60 rounded-xl border border-slate-800 text-xs text-pink-300">
+                        <i class="fa-solid fa-chart-line text-blue-400 mr-1"></i> Laporan Real-Time Tersimpan
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SECTION BARU: Untuk Siapa QR Code Ini (Kategori Produk Custom) -->
-    <section id="penggunaan" class="py-20 bg-slate-900/40 border-b border-slate-800/60 scroll-mt-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-2xl mx-auto mb-12">
-                <h2 class="text-xs font-bold text-indigo-400 uppercase tracking-widest mb-3">Kustomisasi Media Cetak</h2>
-                <p class="text-3xl sm:text-4xl font-extrabold text-white mb-4">Untuk Siapa Smart QR Code Ini?</p>
-                <p class="text-slate-400 text-sm">Temukan berbagai bentuk produk fisik yang dapat diintegrasikan dengan barcode pintar interaktif Anda.</p>
-            </div>
-
-            <!-- TAB NAVIGASI KATEGORI -->
-            <div class="flex flex-wrap justify-center gap-3 mb-10">
-                <button onclick="switchCategory('lifestyle')" id="btn-lifestyle" class="tab-category-btn px-6 py-2.5 rounded-full text-sm font-semibold border transition-all duration-300 bg-indigo-600 border-indigo-500 text-white shadow-lg shadow-indigo-600/30">
-                    <i class="fa-solid fa-shirt mr-2"></i>Lifestyle
-                </button>
-                <button onclick="switchCategory('souvenir')" id="btn-souvenir" class="tab-category-btn px-6 py-2.5 rounded-full text-sm font-semibold border transition-all duration-300 bg-slate-900/80 border-slate-800 text-slate-400 hover:text-white hover:border-slate-700">
-                    <i class="fa-solid fa-gift mr-2"></i>Souvenir
-                </button>
-                <button onclick="switchCategory('percetakan')" id="btn-percetakan" class="tab-category-btn px-6 py-2.5 rounded-full text-sm font-semibold border transition-all duration-300 bg-slate-900/80 border-slate-800 text-slate-400 hover:text-white hover:border-slate-700">
-                    <i class="fa-solid fa-print mr-2"></i>Percetakan
-                </button>
-                <button onclick="switchCategory('bisnis')" id="btn-bisnis" class="tab-category-btn px-6 py-2.5 rounded-full text-sm font-semibold border transition-all duration-300 bg-slate-900/80 border-slate-800 text-slate-400 hover:text-white hover:border-slate-700">
-                    <i class="fa-solid fa-briefcase mr-2"></i>Bisnis
-                </button>
-            </div>
-
-            <!-- CONTAINER SLIDER PRODUCT (Dapat digeser mouse/drag & scroll horizontal) -->
-            <div class="relative overflow-hidden rounded-2xl p-2">
-                <div id="productGallerySlider" class="drag-slider flex gap-6 overflow-x-auto pb-6 pt-2 snap-x">
-                    <!-- Item galeri akan di-render secara otomatis oleh JavaScript di bawah -->
-                </div>
-            </div>
-            
-            <p class="text-center text-xs text-slate-500 mt-4">
-                <i class="fa-solid fa-hand-pointer mr-1"></i> Geser/drag dengan mouse untuk melihat produk lainnya. Arahkan kursor ke foto untuk memperbesar zoom.
-            </p>
-        </div>
-    </section>
-
-    <!-- SECTION 3: Manfaat -->
-    <section id="manfaat" class="py-20 bg-slate-900/30 border-b border-slate-800/60 scroll-mt-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-2xl mx-auto mb-16">
-                <h2 class="text-xs font-bold text-indigo-400 uppercase tracking-widest mb-3">Keuntungan Utama</h2>
-                <p class="text-3xl sm:text-4xl font-extrabold text-white">Mengapa Anda Harus Menggunakan Smart QR Code?</p>
-            </div>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="p-8 rounded-2xl glass-card text-center">
-                    <div class="w-16 h-16 rounded-2xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center mx-auto mb-6 text-2xl">
-                        <i class="fa-solid fa-piggy-bank"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-3">Hemat Anggaran Operasional</h3>
-                    <p class="text-sm text-slate-400 leading-relaxed">Tidak perlu alokasi dana berulang untuk cetak ulang materi promosi cetak hanya karena perubahan informasi kontak.</p>
-                </div>
-                <div class="p-8 rounded-2xl glass-card text-center">
-                    <div class="w-16 h-16 rounded-2xl bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 flex items-center justify-center mx-auto mb-6 text-2xl">
-                        <i class="fa-solid fa-award"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-3">Tampilan Lebih Profesional</h3>
-                    <p class="text-sm text-slate-400 leading-relaxed">Memberikan kesan bisnis modern, adaptif, dan siap bersaing di era digital dengan branding yang kuat.</p>
-                </div>
-                <div class="p-8 rounded-2xl glass-card text-center">
-                    <div class="w-16 h-16 rounded-2xl bg-purple-500/10 text-purple-400 border border-purple-500/20 flex items-center justify-center mx-auto mb-6 text-2xl">
-                        <i class="fa-solid fa-chart-pie"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-3">Keputusan Berbasis Data</h3>
-                    <p class="text-sm text-slate-400 leading-relaxed">Ketahui efektivitas pemasangan QR di media mana (brosur vs spanduk) berdasarkan statistik scan yang akurat.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION 4: Analitik -->
-    <section id="analitik" class="py-20 border-b border-slate-800/60 scroll-mt-20">
+    <!-- SECTION 6: DEMO QR CODE DINAMIS (Real-Time Live Redirect) -->
+    <section id="demo" class="py-20 bg-[#090c14] border-b border-slate-800/60 scroll-mt-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid lg:grid-cols-2 gap-12 items-center">
                 <div>
-                    <h2 class="text-xs font-bold text-indigo-400 uppercase tracking-widest mb-3">Laporan & Pelacakan</h2>
-                    <p class="text-3xl sm:text-4xl font-extrabold text-white mb-6">
-                        Pantau Kinerja QR Code Anda Secara Real-Time
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold uppercase mb-4">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                        Live Interactive System
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-6">Uji Coba Sistem Dynamic QR Secara Real-Time</h2>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        Pindai QR Code di sebelah kanan menggunakan kamera HP Anda sekarang! Kode QR ini menggunakan ID sistem berita dinamis yang target kontennya otomatis berganti secara rotasi.
                     </p>
-                    <p class="text-slate-400 leading-relaxed mb-8">
-                        Dapatkan wawasan lengkap mengenai siapa saja yang melakukan scan terhadap QR Code Anda untuk menyusun strategi pemasaran yang lebih efektif.
-                    </p>
-                    <div class="space-y-4">
-                        <div class="flex items-center gap-3 text-slate-300 text-sm">
-                            <i class="fa-solid fa-circle-check text-emerald-400"></i>
-                            <span>Laporan total scan harian, mingguan, dan bulanan</span>
+                    <div class="space-y-4 mb-8">
+                        <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800">
+                            <span class="text-xs text-slate-500 uppercase font-semibold block mb-1">Target URL Aktif Saat Ini:</span>
+                            <a id="demoActiveUrl" href="#" target="_blank" class="text-sm font-mono text-indigo-400 hover:underline break-all">
+                                Loading URL Target...
+                            </a>
                         </div>
-                        <div class="flex items-center gap-3 text-slate-300 text-sm">
-                            <i class="fa-solid fa-circle-check text-emerald-400"></i>
-                            <span>Deteksi lokasi (Kota & Wilayah) pengguna yang scan</span>
-                        </div>
-                        <div class="flex items-center gap-3 text-slate-300 text-sm">
-                            <i class="fa-solid fa-circle-check text-emerald-400"></i>
-                            <span>Informasi perangkat yang digunakan (Android / iOS / PC)</span>
+                        <div class="flex items-center justify-between p-4 rounded-xl bg-slate-900/90 border border-slate-800">
+                            <span class="text-xs text-slate-300 font-semibold">Hitung Mundur Rotasi Otomatis:</span>
+                            <span id="demoTimer" class="font-mono font-bold text-xl text-amber-400 bg-amber-400/10 px-3 py-1 rounded-lg border border-amber-400/20">05:00</span>
                         </div>
                     </div>
                 </div>
-                <div class="glass-card p-8 rounded-3xl border border-slate-800 bg-slate-900/60">
-                    <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
-                        <i class="fa-solid fa-chart-line text-indigo-400"></i>
-                        Simulasi Laporan Scan
+
+                <!-- QR Demo Display Card -->
+                <div class="glass-card p-8 rounded-3xl border border-slate-800 text-center glow-box relative">
+                    <div class="p-4 bg-white rounded-2xl w-56 h-56 mx-auto mb-6 shadow-2xl relative group">
+                        <img id="demoQrImage" src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=https://smart-qr-code-iota.vercel.app/scan.html?id=NEWS5M&color=0b0f19" alt="SmartQR Dynamic Live Demo" class="w-full h-full rounded-lg">
+                    </div>
+                    <h3 class="text-white font-bold text-lg mb-1">Dynamic News QR Code</h3>
+                    <p class="text-xs text-slate-400 max-w-xs mx-auto">Scan QR ini sekarang, lalu tunggu hingga timer habis. Scan ulang dan halaman tujuannya akan berubah tanpa merubah cetakan gambar QR di atas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 7: TRAFIK DAN ANALITIK SCAN (Chart.js & SaaS Dashboard) -->
+    <section id="analitik" class="py-20 border-b border-slate-800/60 scroll-mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold uppercase mb-3">
+                        <i class="fa-solid fa-chart-line"></i> Dashboard Preview
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Trafik & Analytics Scanner</h2>
+                </div>
+                <div class="mt-4 md:mt-0 flex items-center gap-2">
+                    <span class="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-semibold">
+                        <i class="fa-solid fa-flask mr-1"></i> Data Demo Simulation
+                    </span>
+                </div>
+            </div>
+
+            <!-- Stats Overview Cards -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="glass-card p-6 rounded-2xl border border-slate-800">
+                    <span class="text-xs text-slate-400 font-medium">Total Pemindaian</span>
+                    <div class="text-2xl font-bold text-white mt-2">12,845 <span class="text-xs text-emerald-400 font-normal"><i class="fa-solid fa-arrow-up"></i> +18%</span></div>
+                </div>
+                <div class="glass-card p-6 rounded-2xl border border-slate-800">
+                    <span class="text-xs text-slate-400 font-medium">Pengunjung Unik</span>
+                    <div class="text-2xl font-bold text-white mt-2">8,920 <span class="text-xs text-emerald-400 font-normal"><i class="fa-solid fa-arrow-up"></i> +12%</span></div>
+                </div>
+                <div class="glass-card p-6 rounded-2xl border border-slate-800">
+                    <span class="text-xs text-slate-400 font-medium">Perangkat Utama</span>
+                    <div class="text-2xl font-bold text-indigo-400 mt-2">Mobile (92%)</div>
+                </div>
+                <div class="glass-card p-6 rounded-2xl border border-slate-800">
+                    <span class="text-xs text-slate-400 font-medium">Lokasi Teraktif</span>
+                    <div class="text-2xl font-bold text-purple-400 mt-2">Jakarta & Bandung</div>
+                </div>
+            </div>
+
+            <!-- Charts Section Grid -->
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Line Chart Scan Trend -->
+                <div class="lg:col-span-2 glass-card p-6 rounded-3xl border border-slate-800">
+                    <h3 class="text-base font-bold text-white mb-4 flex items-center justify-between">
+                        <span>Tren Pemindaian Harian</span>
+                        <span class="text-xs font-normal text-slate-400">7 Hari Terakhir</span>
                     </h3>
-                    <div class="space-y-4">
-                        <div class="p-4 rounded-xl bg-slate-950/80 border border-slate-800 flex justify-between items-center">
-                            <span class="text-xs text-slate-400">Total Scan Bulan Ini</span>
-                            <span class="text-lg font-bold text-emerald-400">2,845 Scans</span>
-                        </div>
-                        <div class="p-4 rounded-xl bg-slate-950/80 border border-slate-800 flex justify-between items-center">
-                            <span class="text-xs text-slate-400">Perangkat Terbanyak</span>
-                            <span class="text-xs font-semibold text-slate-200">iOS (64%) / Android (36%)</span>
-                        </div>
-                        <div class="p-4 rounded-xl bg-slate-950/80 border border-slate-800 flex justify-between items-center">
-                            <span class="text-xs text-slate-400">Lokasi Utama</span>
-                            <span class="text-xs font-semibold text-indigo-400">Jakarta, Bandung, Surabaya</span>
-                        </div>
+                    <div class="h-64 relative">
+                        <canvas id="scanTrendChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Doughnut Chart Device Distribution -->
+                <div class="glass-card p-6 rounded-3xl border border-slate-800">
+                    <h3 class="text-base font-bold text-white mb-4">Sebaran Perangkat</h3>
+                    <div class="h-64 relative flex items-center justify-center">
+                        <canvas id="deviceChart"></canvas>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SECTION 5: Form Pemesanan & Konsultasi -->
-    <section id="form-pemesanan" class="py-20 bg-slate-900/80 border-t border-slate-800 scroll-mt-20">
+    <!-- SECTION 8: FORM PEMESANAN & KONSULTASI (Terhubung Sheet & WA) -->
+    <section id="form-pemesanan" class="py-20 bg-[#090c14] border-t border-slate-800 scroll-mt-20">
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
-                <h2 class="text-xs font-bold text-indigo-400 uppercase tracking-widest mb-3">Pesan & Konsultasi</h2>
-                <p class="text-3xl sm:text-4xl font-extrabold text-white mb-4">Dapatkan Smart QR Code Anda</p>
-                <p class="text-slate-400 text-sm">Isi formulir ringkas di bawah ini. Tim kami akan merespons pemesanan atau pertanyaan Anda via WhatsApp.</p>
+                <h2 class="text-xs font-bold text-indigo-400 uppercase tracking-widest mb-3">Formulir Order & Konsultasi</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold text-white mb-4">Pesan SmartQR Sekarang</p>
+                <p class="text-slate-400 text-sm">Isi data di bawah ini. Tim kami akan merespons pemesanan atau pertanyaan Anda langsung via WhatsApp.</p>
             </div>
 
             <div class="glass-card p-8 sm:p-10 rounded-3xl border border-slate-800 shadow-2xl relative">
+                <!-- FORM TIDAK DIUBAH PROSES/RUMUS PENYIMPANANNYA -->
                 <form id="leadForm" class="space-y-6">
                     <div>
                         <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Nama Lengkap *</label>
@@ -347,270 +398,64 @@
                             <input type="tel" name="whatsapp" required placeholder="Contoh: 081234567890" class="w-full px-4 py-3.5 rounded-xl bg-slate-950/80 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 text-sm transition">
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Nama Bisnis / Usaha</label>
-                            <input type="text" name="bisnis" placeholder="Contoh: Kopi Kenangan" class="w-full px-4 py-3.5 rounded-xl bg-slate-950/80 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 text-sm transition">
+                            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Jenis Pelanggan *</label>
+                            <select name="bisnis" required class="w-full px-4 py-3.5 rounded-xl bg-slate-950/80 border border-slate-800 text-slate-200 focus:outline-none focus:border-indigo-500 text-sm transition">
+                                <option value="Usaha / Bisnis">Usaha / Bisnis</option>
+                                <option value="Individual / Personal">Individual / Personal</option>
+                            </select>
                         </div>
                     </div>
 
                     <div>
-                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Kebutuhan QR Code *</label>
+                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Pilihan Kebutuhan SmartQR *</label>
                         <select name="kebutuhan" required class="w-full px-4 py-3.5 rounded-xl bg-slate-950/80 border border-slate-800 text-slate-200 focus:outline-none focus:border-indigo-500 text-sm transition">
                             <option value="" disabled selected>Pilih Kebutuhan Anda</option>
-                            <option value="Menu Resto / Kafe">Menu Resto / Kafe</option>
-                            <option value="Kartu Nama Digital">Kartu Nama Digital / Portofolio</option>
-                            <option value="Packaging / Brosur Produk">Packaging / Brosur Produk</option>
-                            <option value="Sistem Kasir & Pembayaran">Sistem Pembayaran / Link Bio</option>
+                            <option value="Fashion / Souvenir">Fashion / Souvenir</option>
+                            <option value="Packaging / Alat Promosi">Packaging / Alat Promosi</option>
+                            <option value="Menu Resto / Cafe">Menu Resto / Cafe</option>
+                            <option value="Kartu Nama / Portofolio">Kartu Nama / Portofolio</option>
                             <option value="Lainnya">Lainnya</option>
                         </select>
                     </div>
 
                     <div>
-                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Pesan Tambahan / Catatan Khusus</label>
-                        <textarea name="pesan" rows="3" placeholder="Tuliskan pertanyaan atau spesifikasi desain yang Anda inginkan..." class="w-full px-4 py-3.5 rounded-xl bg-slate-950/80 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 text-sm transition"></textarea>
+                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Catatan Tambahan / Kebutuhan Khusus</label>
+                        <textarea name="pesan" rows="3" placeholder="Tuliskan detail pertanyaan atau spesifikasi cetak fisik yang Anda harapkan..." class="w-full px-4 py-3.5 rounded-xl bg-slate-950/80 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 text-sm transition"></textarea>
                     </div>
 
                     <button type="submit" id="submitBtn" class="w-full py-4 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-base transition-all shadow-lg shadow-emerald-600/25 flex items-center justify-center gap-3 active:scale-[0.99]">
                         <i class="fa-brands fa-whatsapp text-xl"></i>
-                        <span>Kirim & Konsultasi via WhatsApp</span>
+                        <span>Konsultasi / Pemesanan via WhatsApp</span>
                     </button>
                     
                     <p class="text-center text-xs text-slate-500">
-                        Data Anda aman & langsung tersimpan di sistem kami.
+                        <i class="fa-solid fa-shield-halved mr-1"></i> Data Anda tersimpan secara otomatis dan aman di database kami.
                     </p>
                 </form>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="py-8 bg-slate-950 border-t border-slate-900 text-center text-xs text-slate-500">
-        <p>&copy; 2026 Smart QR Code. Hak Cipta Dilindungi Undang-Undang.</p>
+    <!-- FOOTER -->
+    <footer class="py-8 bg-[#0b0f19] border-t border-slate-900 text-center text-xs text-slate-500">
+        <p>&copy; 2026 SmartQR Platform. All Rights Reserved.</p>
     </footer>
 
-    <!-- SCRIPT PRODUK CUSTOM (KATEGORI, SLIDER DRAG, & EFEK ZOOM) -->
-    <script>
-        // DATA GAMBAR 4 KATEGORI (Anda bisa mengganti URL gambar & judul secara manual di sini)
-        const productData = {
-            lifestyle: [
-                {
-                    title: "Gantungan Kunci Akrilik",
-                    desc: "Keychain timbul interaktif menuju pesan WhatsApp atau kontak darurat.",
-                    img: "https://images.unsplash.com/photo-1544816155-12df9643f363?q=80&w=600&auto=format&fit=crop"
-                },
-                {
-                    title: "Kaos & Apparel Custom",
-                    desc: "Sablon Barcode estetik di pakaian menuju portofolio atau sosmed.",
-                    img: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=600&auto=format&fit=crop"
-                },
-                {
-                    title: "Tumbler Stainless",
-                    desc: "Grafir/Cetak QR pada botol minum harian untuk identitas pemilik.",
-                    img: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?q=80&w=600&auto=format&fit=crop"
-                },
-                {
-                    title: "Topi Streetwear",
-                    desc: "Aksesori fashion modern dengan bordiran QR terhubung ke komunitas.",
-                    img: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?q=80&w=600&auto=format&fit=crop"
-                }
-            ],
-            souvenir: [
-                {
-                    title: "Plakat & Vandel Akrilik",
-                    desc: "Plakat penghargaan terhubung ke video dokumentasi ucapan.",
-                    img: "https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=600&auto=format&fit=crop"
-                },
-                {
-                    title: "Undangan Pernikahan",
-                    desc: "Cetak barcode lokasi Google Maps & fitur konfirmasi RSVP.",
-                    img: "https://images.unsplash.com/photo-1528821128474-27f963b072b7?q=80&w=600&auto=format&fit=crop"
-                },
-                {
-                    title: "Mug Keramik Custom",
-                    desc: "Souvenir nikah/event dengan pesan unik tersimpan di dalam QR.",
-                    img: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=600&auto=format&fit=crop"
-                },
-                {
-                    title: "Pin & Lanyard Event",
-                    desc: "ID Card / Badge peserta seminar untuk scan absensi cepat.",
-                    img: "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=600&auto=format&fit=crop"
-                }
-            ],
-            percetakan: [
-                {
-                    title: "Brosur & Flier Promo",
-                    desc: "Brosur bebas ganti isi promo harian tanpa cetak ulang materi.",
-                    img: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?q=80&w=600&auto=format&fit=crop"
-                },
-                {
-                    title: "Label Stiker Kemasan",
-                    desc: "Stiker packaging produk ke link WhatsApp Order / Sertifikasi BPOM.",
-                    img: "https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=600&auto=format&fit=crop"
-                },
-                {
-                    title: "Standing Banner",
-                    desc: "X-Banner raksasa depan toko untuk mengarahkan pembeli ke katalog.",
-                    img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop"
-                },
-                {
-                    title: "Buku Menu Resto",
-                    desc: "Buku menu interaktif yang langsung terhubung ke sistem pemesanan.",
-                    img: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=600&auto=format&fit=crop"
-                }
-            ],
-            bisnis: [
-                {
-                    title: "Kartu Nama Digital NFC/QR",
-                    desc: "Satu kartu bisnis elegan berisi seluruh info sosmed & portofolio.",
-                    img: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=600&auto=format&fit=crop"
-                },
-                {
-                    title: "Standee Akrilik Meja",
-                    desc: "Display meja kasir/restoran untuk rating Google Maps & Wi-Fi.",
-                    img: "https://images.unsplash.com/photo-1556742049-0a670f4a4591?q=80&w=600&auto=format&fit=crop"
-                },
-                {
-                    title: "Seragam Sales & Staf",
-                    desc: "Baju kerja ber-QR untuk interaksi bisnis instan dengan calon klien.",
-                    img: "https://images.unsplash.com/photo-1572021335469-31706a17aaef?q=80&w=600&auto=format&fit=crop"
-                },
-                {
-                    title: "Stiker Mobil Operasional",
-                    desc: "Promosi bergerak pada armada kendaraan dinas perusahaan.",
-                    img: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=600&auto=format&fit=crop"
-                }
-            ]
-        };
+    <!-- MODAL PREVIEW GAMBAR GALERI -->
+    <div id="imageModal" class="fixed inset-0 z-50 hidden bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="relative max-w-3xl w-full glass-card p-2 rounded-2xl border border-slate-800">
+            <button onclick="closeModal()" class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-slate-900/80 text-white flex items-center justify-center hover:bg-red-600 transition">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <img id="modalImage" src="" alt="Preview SmartQR" class="w-full h-auto max-h-[80vh] object-contain rounded-xl">
+            <div class="p-4 text-center">
+                <h4 id="modalTitle" class="font-bold text-white text-lg mb-1"></h4>
+                <p id="modalDesc" class="text-xs text-slate-400"></p>
+            </div>
+        </div>
+    </div>
 
-        // Fungsi Render Kartu Produk ke Slider
-        function renderCategoryCards(categoryKey) {
-            const slider = document.getElementById('productGallerySlider');
-            const items = productData[categoryKey] || [];
-            
-            slider.innerHTML = items.map(item => `
-                <div class="snap-start flex-shrink-0 w-72 sm:w-80 glass-card rounded-2xl overflow-hidden border border-slate-800 hover:border-indigo-500/50 transition-all duration-300 group">
-                    <div class="w-full h-48 overflow-hidden relative">
-                        <img src="${item.img}" 
-                             alt="${item.title}" 
-                             class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-125 pointer-events-none">
-                        <div class="absolute inset-0 bg-slate-950/20 group-hover:bg-transparent transition-colors"></div>
-                    </div>
-                    <div class="p-5">
-                        <h4 class="font-bold text-white text-base mb-1.5 group-hover:text-indigo-400 transition-colors">${item.title}</h4>
-                        <p class="text-xs text-slate-400 leading-relaxed">${item.desc}</p>
-                    </div>
-                </div>
-            `).join('');
-            
-            // Reset posisi scroll ke paling kiri saat ganti kategori
-            slider.scrollLeft = 0;
-        }
-
-        // Fungsi Pindah Tab Kategori & Style Tombol Aktif
-        function switchCategory(categoryKey) {
-            const buttons = document.querySelectorAll('.tab-category-btn');
-            buttons.forEach(btn => {
-                btn.className = "tab-category-btn px-6 py-2.5 rounded-full text-sm font-semibold border transition-all duration-300 bg-slate-900/80 border-slate-800 text-slate-400 hover:text-white hover:border-slate-700";
-            });
-
-            const activeBtn = document.getElementById(`btn-${categoryKey}`);
-            if (activeBtn) {
-                activeBtn.className = "tab-category-btn px-6 py-2.5 rounded-full text-sm font-semibold border transition-all duration-300 bg-indigo-600 border-indigo-500 text-white shadow-lg shadow-indigo-600/30";
-            }
-
-            renderCategoryCards(categoryKey);
-        }
-
-        // Fitur Mouse Drag & Scroll pada Slider
-        document.addEventListener('DOMContentLoaded', () => {
-            renderCategoryCards('lifestyle'); // Load default kategori Lifestyle
-
-            const slider = document.getElementById('productGallerySlider');
-            let isDown = false;
-            let startX;
-            let scrollLeft;
-
-            slider.addEventListener('mousedown', (e) => {
-                isDown = true;
-                slider.classList.add('cursor-grabbing');
-                startX = e.pageX - slider.offsetLeft;
-                scrollLeft = slider.scrollLeft;
-            });
-
-            slider.addEventListener('mouseleave', () => {
-                isDown = false;
-                slider.classList.remove('cursor-grabbing');
-            });
-
-            slider.addEventListener('mouseup', () => {
-                isDown = false;
-                slider.classList.remove('cursor-grabbing');
-            });
-
-            slider.addEventListener('mousemove', (e) => {
-                if (!isDown) return;
-                e.preventDefault();
-                const x = e.pageX - slider.offsetLeft;
-                const walk = (x - startX) * 2; // Kecepatan Drag
-                slider.scrollLeft = scrollLeft - walk;
-            });
-        });
-    </script>
-
-    <!-- Script Pengiriman Form ke Google Sheets & Direct WA (Rumus Bawaan Anda) -->
-    <script>
-        // 1. URL Apps Script Database Leads Smart
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxZDrVyLA8q4ky-Fg0qq64njfIvVWt8FshOBtCTtL9wQApdqiJgOy4mJytap3NdvUuc/exec"; 
-        
-        // 2. NOMOR WHATSAPP TUJUAN
-        const NOMOR_WA_TUJUAN = "6285353664560";
-
-        document.getElementById('leadForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const submitBtn = document.getElementById('submitBtn');
-            const originalText = submitBtn.innerHTML;
-            
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> <span>Menyimpan Data...</span>`;
-
-            const formData = new FormData(this);
-            const data = {
-                nama: formData.get('nama'),
-                whatsapp: formData.get('whatsapp'),
-                bisnis: formData.get('bisnis') || '-',
-                kebutuhan: formData.get('kebutuhan'),
-                pesan: formData.get('pesan') || '-'
-            };
-
-            // Kirim Data ke Google Sheets
-            fetch(SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: new URLSearchParams(data)
-            })
-            .then(() => {
-                const textWA = `Halo, saya *${data.nama}* dari *${data.bisnis}*.\n\n` +
-                               `*Kebutuhan:* ${data.kebutuhan}\n` +
-                               `*No. WA:* ${data.whatsapp}\n` +
-                               `*Pesan:* ${data.pesan}\n\n` +
-                               `Saya berminat dengan Smart QR Code dan ingin konsultasi lebih lanjut.`;
-                
-                window.open(`https://wa.me/${NOMOR_WA_TUJUAN}?text=${encodeURIComponent(textWA)}`, '_blank');
-                
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = originalText;
-                this.reset();
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                const textWA = `Halo, saya *${data.nama}* dari *${data.bisnis}*. Saya ingin konsultasi Smart QR Code.`;
-                window.open(`https://wa.me/${NOMOR_WA_TUJUAN}?text=${encodeURIComponent(textWA)}`, '_blank');
-                
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = originalText;
-            });
-        });
-    </script>
+    <!-- External Script JS -->
+    <script src="script.js"></script>
 </body>
 </html>
