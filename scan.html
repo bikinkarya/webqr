@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Mengarahkan...</title>
+  <script>
+    (function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const cardId = urlParams.get('id') || urlParams.get('card_id');
+
+      if (!cardId) {
+        document.body.innerHTML = "<h3>ID QR Code tidak valid.</h3>";
+        return;
+      }
+
+      // 1. Ambil data analitik pengakses (HP, Browser, IP)
+      const userAgent = navigator.userAgent;
+      
+      // 2. Kirim Log Scan secara Asinkron (fire-and-forget) agar TIDAK MEMBEBANI alur utama
+      fetch('https://script.google.com/macros/s/AKfycbxdUclcFRqNlvfYxQ8LcCoDFnz0nZYBbU8DJDAtBLfdz-BgnYV1n6PxZsWxi8Yaxujb/exec', {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          card_id: cardId,
+          user_agent: userAgent,
+          timestamp: new Date().toISOString()
+        })
+      }).catch(err => console.log('Log background error:', err));
+
+      // 3. SEKETIKA ITU JUGA oper proses pengecekan status & URL ke qr-maps (Satu Pintu)
+window.location.replace(`https://qr-maps.vercel.app/api/r?id=${cardId}`);
+    })();
+  </script>
+</head>
+<body>
+  <p>Sedang menghubungkan ke lokasi...</p>
+</body>
+</html>
