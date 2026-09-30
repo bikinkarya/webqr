@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartQR Redirecting...</title>
+    <style>
+        body {
+            background-color: #0b0f19;
+            color: #ffffff;
+            font-family: system-ui, -apple-system, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        .spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-left-color: #6366f1;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="spinner"></div>
+    <p>Mengarahkan Anda ke konten SmartQR...</p>
+
+    <script>
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwZVznwLX1WQRKzCoOr1bbAwlcjzOsIhdcEhlhu8u2dEzJIfMCH6sGTm-b3_HURD9PB/exec";
+        const FALLBACK_URL = "https://news.google.com";
+
+        // Ambil User Agent / Tipe Perangkat
+        const userAgent = navigator.userAgent;
+        let deviceType = "Desktop";
+        if (/android/i.test(userAgent)) deviceType = "Android";
+        if (/iPhone|iPad|iPod/i.test(userAgent)) deviceType = "iOS";
+
+        // Catat Scan dan Dapatkan Link Berita Terkini
+        fetch(`${SCRIPT_URL}?action=scanLog&device=${encodeURIComponent(deviceType)}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data && data.targetUrl) {
+                    window.location.href = data.targetUrl;
+                } else {
+                    window.location.href = FALLBACK_URL;
+                }
+            })
+            .catch(() => {
+                window.location.href = FALLBACK_URL;
+            });
+    </script>
+</body>
+</html>

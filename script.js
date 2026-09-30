@@ -1,14 +1,6 @@
-// ==========================================
-// 1. KONFIGURASI PROSES DATABASE & WHATSAPP
-// ==========================================
-// Keduanya dipertahankan 100% tanpa diubah
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxdUclcFRqNlvfYxQ8LcCoDFnz0nZYBbU8DJDAtBLfdz-BgnYV1n6PxZsWxi8Yaxujb/exec"; 
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwZVznwLX1WQRKzCoOr1bbAwlcjzOsIhdcEhlhu8u2dEzJIfMCH6sGTm-b3_HURD9PB/exec"; 
 const NOMOR_WA_TUJUAN = "6285353664560";
 
-// ==========================================
-// 2. DATA KATEGORI GALERI (UNTUK SIAPA SMARTQR)
-// ==========================================
-// Anda dapat mengganti URL gambar, judul, dan deskripsi produk di sini
 const galleryData = {
     fashion: [
         { title: "Kaos & Apparel Custom", desc: "Sablon QR Code di kaos terhubung ke portofolio / katalog outfit.", img: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=600&auto=format&fit=crop" },
@@ -30,11 +22,7 @@ const galleryData = {
     ]
 };
 
-// ==========================================
-// 3. RENDER GALERI & MODAL PREVIEW
-// ==========================================
 function switchTab(tabKey) {
-    // Style tombol tab
     const buttons = document.querySelectorAll('.tab-btn');
     buttons.forEach(btn => {
         btn.className = "tab-btn px-6 py-2.5 rounded-full text-sm font-semibold border transition-all duration-300 bg-slate-900 border-slate-800 text-slate-400 hover:text-white";
@@ -45,12 +33,11 @@ function switchTab(tabKey) {
         activeBtn.className = "tab-btn px-6 py-2.5 rounded-full text-sm font-semibold border transition-all duration-300 bg-indigo-600 border-indigo-500 text-white shadow-lg shadow-indigo-600/30";
     }
 
-    // Render items
     const container = document.getElementById('galleryContainer');
     const items = galleryData[tabKey] || [];
 
     container.innerHTML = items.map(item => `
-        <div onclick="openModal('${item.img}', '${item.title}', '${item.desc}')" class="glass-card rounded-2xl overflow-hidden border border-slate-800 hover:border-indigo-500/50 transition cursor-pointer group">
+        <div class="glass-card rounded-2xl overflow-hidden border border-slate-800 hover:border-indigo-500/50 transition group">
             <div class="h-48 overflow-hidden relative">
                 <img src="${item.img}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
                 <div class="absolute inset-0 bg-slate-950/30 group-hover:bg-transparent transition"></div>
@@ -63,57 +50,43 @@ function switchTab(tabKey) {
     `).join('');
 }
 
-function openModal(imgSrc, title, desc) {
-    document.getElementById('modalImage').src = imgSrc;
-    document.getElementById('modalTitle').innerText = title;
-    document.getElementById('modalDesc').innerText = desc;
-    document.getElementById('imageModal').classList.remove('hidden');
-}
-
-function closeModal() {
-    document.getElementById('imageModal').classList.add('hidden');
-}
-
-// ==========================================
-// 4. LIVE DEMO TIMER & REAL-TIME ROTATING REDIRECT
-// ==========================================
 function startDemoTimer() {
-    let timeLeft = 300; // 5 Menit (300 Detik)
+    let timeLeft = 300;
     const timerElem = document.getElementById('demoTimer');
-    const activeUrlElem = document.getElementById('demoActiveUrl');
-    
-    // URL Demo Berita Dinamis
-    const demoRedirectUrl = "https://smart-qr-code-iota.vercel.app/scan.html?id=NEWS5M";
-    
-    if (activeUrlElem) {
-        activeUrlElem.innerText = demoRedirectUrl;
-        activeUrlElem.href = demoRedirectUrl;
-    }
-
     setInterval(() => {
         let minutes = Math.floor(timeLeft / 60);
         let seconds = timeLeft % 60;
-        
         minutes = minutes < 10 ? '0' + minutes : minutes;
         seconds = seconds < 10 ? '0' + seconds : seconds;
-
-        if (timerElem) {
-            timerElem.innerText = `${minutes}:${seconds}`;
-        }
-
-        if (timeLeft <= 0) {
-            timeLeft = 300; // Reset ke 5 menit lagi
-        } else {
-            timeLeft--;
-        }
+        if (timerElem) timerElem.innerText = `${minutes}:${seconds}`;
+        if (timeLeft <= 0) timeLeft = 300;
+        else timeLeft--;
     }, 1000);
 }
 
-// ==========================================
-// 5. INISIALISASI CHART ANALITIK (CHART.JS)
-// ==========================================
-function initAnalyticsCharts() {
-    // Trend Chart (Line)
+// Fetch Realtime Analytics dari Apps Script
+function fetchRealtimeAnalytics() {
+    fetch(`${SCRIPT_URL}?action=getAnalytics`)
+        .then(res => res.json())
+        .then(data => {
+            const total = data.totalScan || 0;
+            const ios = data.devices.iOS || 0;
+            const android = data.devices.Android || 0;
+            const desktop = data.devices.Desktop || 0;
+
+            document.getElementById('statTotalScan').innerText = total.toLocaleString();
+            document.getElementById('statIos').innerText = ios;
+            document.getElementById('statAndroid').innerText = android;
+            document.getElementById('statDesktop').innerText = desktop;
+
+            renderCharts(total, ios, android, desktop);
+        })
+        .catch(() => {
+            renderCharts(12, 5, 5, 2);
+        });
+}
+
+function renderCharts(total, ios, android, desktop) {
     const ctxTrend = document.getElementById('scanTrendChart');
     if (ctxTrend) {
         new Chart(ctxTrend, {
@@ -121,13 +94,12 @@ function initAnalyticsCharts() {
             data: {
                 labels: ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'],
                 datasets: [{
-                    label: 'Total Scan',
-                    data: [1200, 1900, 1500, 2400, 2800, 3200, 2845],
+                    label: 'Scan',
+                    data: [Math.round(total*0.1), Math.round(total*0.15), Math.round(total*0.12), Math.round(total*0.18), Math.round(total*0.2), Math.round(total*0.12), total],
                     borderColor: '#6366f1',
                     backgroundColor: 'rgba(99, 102, 241, 0.1)',
                     fill: true,
-                    tension: 0.4,
-                    borderWidth: 3
+                    tension: 0.4
                 }]
             },
             options: {
@@ -142,59 +114,45 @@ function initAnalyticsCharts() {
         });
     }
 
-    // Device Chart (Doughnut)
     const ctxDevice = document.getElementById('deviceChart');
     if (ctxDevice) {
         new Chart(ctxDevice, {
             type: 'doughnut',
             data: {
-                labels: ['iOS (iPhone)', 'Android', 'Desktop / Tablet'],
+                labels: ['iOS', 'Android', 'Desktop/Lainnya'],
                 datasets: [{
-                    data: [62, 30, 8],
-                    backgroundColor: ['#8b5cf6', '#3b82f6', '#06b6d4'],
+                    data: [ios, android, desktop],
+                    backgroundColor: ['#8b5cf6', '#6366f1', '#14b8a6'],
                     borderWidth: 0
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: {
-                    legend: { position: 'bottom', labels: { color: '#94a3b8', boxWidth: 12 } }
-                }
+                plugins: { legend: { position: 'bottom', labels: { color: '#94a3b8' } } }
             }
         });
     }
 }
 
-// ==========================================
-// 6. PROSES FORM PENYIMPANAN DATA & WHATSAPP
-// ==========================================
 document.addEventListener('DOMContentLoaded', () => {
-    // Init Galeri Default
     switchTab('fashion');
-    
-    // Init Live Demo & Charts
     startDemoTimer();
-    initAnalyticsCharts();
+    fetchRealtimeAnalytics();
 
-    // Mobile Menu Toggle
     const mobileBtn = document.getElementById('mobileMenuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
     if (mobileBtn && mobileMenu) {
-        mobileBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
+        mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
         document.querySelectorAll('.mobile-link').forEach(link => {
             link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
         });
     }
 
-    // Form Handling (100% Menggunakan Rumus milik Anda)
     const leadForm = document.getElementById('leadForm');
     if (leadForm) {
         leadForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            
             const submitBtn = document.getElementById('submitBtn');
             const originalText = submitBtn.innerHTML;
             
@@ -210,7 +168,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 pesan: formData.get('pesan') || '-'
             };
 
-            // Kirim Data ke Apps Script Google Sheets
             fetch(SCRIPT_URL, {
                 method: 'POST',
                 mode: 'no-cors',
@@ -218,23 +175,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: new URLSearchParams(data)
             })
             .then(() => {
-                const textWA = `Halo, saya *${data.nama}* (${data.bisnis}).\n\n` +
-                               `*Kebutuhan:* ${data.kebutuhan}\n` +
-                               `*No. WA:* ${data.whatsapp}\n` +
-                               `*Catatan:* ${data.pesan}\n\n` +
-                               `Saya berminat dengan SmartQR dan ingin konsultasi lebih lanjut.`;
-                
+                const textWA = `Halo, saya *${data.nama}* (${data.bisnis}).\n\n*Kebutuhan:* ${data.kebutuhan}\n*No. WA:* ${data.whatsapp}\n*Catatan:* ${data.pesan}\n\nSaya berminat dengan SmartQR dan ingin konsultasi lebih lanjut.`;
                 window.open(`https://wa.me/${NOMOR_WA_TUJUAN}?text=${encodeURIComponent(textWA)}`, '_blank');
-                
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = originalText;
                 this.reset();
             })
-            .catch(error => {
-                console.error("Error:", error);
+            .catch(() => {
                 const textWA = `Halo, saya *${data.nama}* (${data.bisnis}). Saya ingin konsultasi SmartQR.`;
                 window.open(`https://wa.me/${NOMOR_WA_TUJUAN}?text=${encodeURIComponent(textWA)}`, '_blank');
-                
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = originalText;
             });

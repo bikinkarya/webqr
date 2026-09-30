@@ -20,11 +20,10 @@
     <!-- Header & Navigation -->
     <nav class="fixed top-0 left-0 right-0 z-50 glass-card border-b border-slate-800/80 bg-[#0b0f19]/80 backdrop-blur-md">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center font-bold text-xl shadow-lg shadow-indigo-500/30">
-                    <i class="fa-solid fa-qrcode text-white"></i>
-                </div>
-                <span class="font-bold text-xl tracking-tight text-white">
+            
+            <!-- Logo Tanpa Barcode -->
+            <div class="flex items-center">
+                <span class="font-extrabold text-2xl tracking-tight text-white">
                     Smart<span class="text-indigo-400">QR</span>
                 </span>
             </div>
@@ -47,21 +46,21 @@
             </div>
 
             <!-- Mobile Hamburger Button -->
-            <button id="mobileMenuBtn" class="lg:hidden text-slate-300 hover:text-white text-2xl focus:outline-none">
+            <button id="mobileMenuBtn" class="lg:hidden text-slate-300 hover:text-white text-2xl focus:outline-none p-2">
                 <i class="fa-solid fa-bars"></i>
             </button>
         </div>
 
         <!-- Mobile Navigation Menu -->
         <div id="mobileMenu" class="hidden lg:hidden border-t border-slate-800 bg-[#0b0f19] px-4 pt-4 pb-6 space-y-3 text-slate-300 text-sm font-medium">
-            <a href="#beranda" class="mobile-link block hover:text-indigo-400 py-1">Beranda</a>
-            <a href="#masalah" class="mobile-link block hover:text-indigo-400 py-1">Masalah</a>
-            <a href="#keunggulan" class="mobile-link block hover:text-indigo-400 py-1">Keunggulan</a>
-            <a href="#untuk-siapa" class="mobile-link block hover:text-indigo-400 py-1">Untuk Siapa</a>
-            <a href="#solusi" class="mobile-link block hover:text-indigo-400 py-1">Solusi</a>
-            <a href="#demo" class="mobile-link block hover:text-indigo-400 py-1">Demo</a>
-            <a href="#analitik" class="mobile-link block hover:text-indigo-400 py-1">Analitik</a>
-            <a href="#form-pemesanan" class="mobile-link block w-full text-center py-3 rounded-xl bg-indigo-600 text-white font-semibold mt-2">Pesan Sekarang</a>
+            <a href="#beranda" class="mobile-link block hover:text-indigo-400 py-2 border-b border-slate-800/50">Beranda</a>
+            <a href="#masalah" class="mobile-link block hover:text-indigo-400 py-2 border-b border-slate-800/50">Masalah</a>
+            <a href="#keunggulan" class="mobile-link block hover:text-indigo-400 py-2 border-b border-slate-800/50">Keunggulan</a>
+            <a href="#untuk-siapa" class="mobile-link block hover:text-indigo-400 py-2 border-b border-slate-800/50">Untuk Siapa</a>
+            <a href="#solusi" class="mobile-link block hover:text-indigo-400 py-2 border-b border-slate-800/50">Solusi</a>
+            <a href="#demo" class="mobile-link block hover:text-indigo-400 py-2 border-b border-slate-800/50">Demo</a>
+            <a href="#analitik" class="mobile-link block hover:text-indigo-400 py-2 border-b border-slate-800/50">Analitik</a>
+            <a href="#form-pemesanan" class="mobile-link block w-full text-center py-3 rounded-xl bg-indigo-600 text-white font-semibold mt-4">Pesan Sekarang</a>
         </div>
     </nav>
 
@@ -97,9 +96,8 @@
                 <div class="relative lg:ml-auto w-full max-w-md">
                     <div class="glass-card rounded-3xl p-6 border border-slate-800 glow-box relative overflow-hidden">
                         <div class="relative bg-slate-900/90 rounded-2xl p-6 border border-slate-800 text-center">
-                            <!-- Mockup Akrilik Bening & QR -->
                             <div class="w-48 h-48 mx-auto bg-white p-4 rounded-2xl shadow-2xl relative mb-4 flex items-center justify-center border-4 border-slate-700/50">
-                                <img id="heroQrCode" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://smart-qr-code-iota.vercel.app/scan.html?id=NEWS5M&color=0b0f19" alt="SmartQR Acrylic Display" class="w-full h-full rounded-lg">
+                                <img id="heroQrCode" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://smart-qr-code-iota.vercel.app/logscan.html&color=0b0f19" alt="SmartQR Acrylic Display" class="w-full h-full rounded-lg">
                             </div>
                             <span class="inline-block px-3 py-1 bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 rounded-full text-xs font-mono font-medium mb-2">
                                 <i class="fa-solid fa-layer-group mr-1"></i> Standee Akrilik Bening Meja
@@ -112,7 +110,7 @@
         </div>
     </section>
 
-    <!-- SECTION 2: MASALAH (Pain Points) -->
+    <!-- SECTION 2: MASALAH -->
     <section id="masalah" class="py-20 bg-[#090c14] border-y border-slate-800/60 scroll-mt-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-2xl mx-auto mb-16">
@@ -152,7 +150,7 @@
         </div>
     </section>
 
-    <!-- SECTION 3: KEUNGGULAN SMARTQR -->
+    <!-- SECTION 3: KEUNGGULAN -->
     <section id="keunggulan" class="py-20 border-b border-slate-800/60 scroll-mt-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-2xl mx-auto mb-16">
@@ -228,14 +226,11 @@
                 </button>
             </div>
 
-            <!-- Gallery Cards Container -->
-            <div id="galleryContainer" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Javascript akan mengisi card foto di sini secara dinamis -->
-            </div>
+            <div id="galleryContainer" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
         </div>
     </section>
 
-    <!-- SECTION 5: SOLUSI SMARTQR (Alur Kerja) -->
+    <!-- SECTION 5: SOLUSI SMARTQR -->
     <section id="solusi" class="py-20 border-b border-slate-800/60 scroll-mt-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-2xl mx-auto mb-16">
@@ -244,7 +239,6 @@
             </div>
 
             <div class="grid lg:grid-cols-3 gap-8 relative">
-                <!-- Step 1 -->
                 <div class="glass-card p-8 rounded-3xl border border-slate-800 relative">
                     <div class="w-10 h-10 rounded-full bg-indigo-600 text-white font-bold flex items-center justify-center mb-6">1</div>
                     <h3 class="text-xl font-bold text-white mb-3">Cetak QR Pada Produk Fisik</h3>
@@ -253,7 +247,6 @@
                         <i class="fa-solid fa-check text-emerald-400 mr-1"></i> Cetak Sekali untuk Selamanya
                     </div>
                 </div>
-                <!-- Step 2 -->
                 <div class="glass-card p-8 rounded-3xl border border-slate-800 relative">
                     <div class="w-10 h-10 rounded-full bg-purple-600 text-white font-bold flex items-center justify-center mb-6">2</div>
                     <h3 class="text-xl font-bold text-white mb-3">Atur Link Kapan Saja</h3>
@@ -262,7 +255,6 @@
                         <i class="fa-solid fa-bolt text-amber-400 mr-1"></i> Update Instan Tanpa Delay
                     </div>
                 </div>
-                <!-- Step 3 -->
                 <div class="glass-card p-8 rounded-3xl border border-slate-800 relative">
                     <div class="w-10 h-10 rounded-full bg-pink-600 text-white font-bold flex items-center justify-center mb-6">3</div>
                     <h3 class="text-xl font-bold text-white mb-3">Pelanggan Scan & Terhubung</h3>
@@ -275,7 +267,7 @@
         </div>
     </section>
 
-    <!-- SECTION 6: DEMO QR CODE DINAMIS (Real-Time Live Redirect) -->
+    <!-- SECTION 6: DEMO QR CODE DINAMIS -->
     <section id="demo" class="py-20 bg-[#090c14] border-b border-slate-800/60 scroll-mt-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid lg:grid-cols-2 gap-12 items-center">
@@ -286,18 +278,12 @@
                     </div>
                     <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-6">Uji Coba Sistem Dynamic QR Secara Real-Time</h2>
                     <p class="text-slate-400 text-sm leading-relaxed mb-6">
-                        Pindai QR Code di sebelah kanan menggunakan kamera HP Anda sekarang! Kode QR ini menggunakan ID sistem berita dinamis yang target kontennya otomatis berganti secara rotasi.
+                        Pindai QR Code di sebelah kanan menggunakan kamera HP Anda! QR ini mengarahkan ke sistem berita acak terupdate dari database spreadsheet Anda secara dinamis.
                     </p>
-                    <div class="space-y-4 mb-8">
-                        <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800">
-                            <span class="text-xs text-slate-500 uppercase font-semibold block mb-1">Target URL Aktif Saat Ini:</span>
-                            <a id="demoActiveUrl" href="#" target="_blank" class="text-sm font-mono text-indigo-400 hover:underline break-all">
-                                Loading URL Target...
-                            </a>
-                        </div>
-                        <div class="flex items-center justify-between p-4 rounded-xl bg-slate-900/90 border border-slate-800">
-                            <span class="text-xs text-slate-300 font-semibold">Hitung Mundur Rotasi Otomatis:</span>
-                            <span id="demoTimer" class="font-mono font-bold text-xl text-amber-400 bg-amber-400/10 px-3 py-1 rounded-lg border border-amber-400/20">05:00</span>
+                    <div class="mb-8">
+                        <div class="flex items-center justify-between p-5 rounded-2xl bg-slate-900/90 border border-slate-800 max-w-md">
+                            <span class="text-sm text-slate-300 font-semibold">Hitung Mundur Rotasi Otomatis:</span>
+                            <span id="demoTimer" class="font-mono font-bold text-xl text-amber-400 bg-amber-400/10 px-4 py-1.5 rounded-xl border border-amber-400/20">05:00</span>
                         </div>
                     </div>
                 </div>
@@ -305,55 +291,52 @@
                 <!-- QR Demo Display Card -->
                 <div class="glass-card p-8 rounded-3xl border border-slate-800 text-center glow-box relative">
                     <div class="p-4 bg-white rounded-2xl w-56 h-56 mx-auto mb-6 shadow-2xl relative group">
-                        <img id="demoQrImage" src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=https://smart-qr-code-iota.vercel.app/scan.html?id=NEWS5M&color=0b0f19" alt="SmartQR Dynamic Live Demo" class="w-full h-full rounded-lg">
+                        <img id="demoQrImage" src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=https://smart-qr-code-iota.vercel.app/logscan.html&color=0b0f19" alt="SmartQR Dynamic Live Demo" class="w-full h-full rounded-lg">
                     </div>
-                    <h3 class="text-white font-bold text-lg mb-1">Dynamic News QR Code</h3>
-                    <p class="text-xs text-slate-400 max-w-xs mx-auto">Scan QR ini sekarang, lalu tunggu hingga timer habis. Scan ulang dan halaman tujuannya akan berubah tanpa merubah cetakan gambar QR di atas.</p>
+                    <h3 class="text-white font-bold text-lg mb-1">Dynamic Live Demo QR</h3>
+                    <p class="text-xs text-slate-400 max-w-xs mx-auto">Scan QR ini sekarang untuk menguji pengalihan link otomatis ke portal berita dan pencatatan log scan.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SECTION 7: TRAFIK DAN ANALITIK SCAN (Chart.js & SaaS Dashboard) -->
+    <!-- SECTION 7: ANALITIK SCAN DATA REALTIME -->
     <section id="analitik" class="py-20 border-b border-slate-800/60 scroll-mt-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
                 <div>
                     <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold uppercase mb-3">
-                        <i class="fa-solid fa-chart-line"></i> Dashboard Preview
+                        <i class="fa-solid fa-chart-line"></i> Live Analytics Dashboard
                     </div>
                     <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Trafik & Analytics Scanner</h2>
                 </div>
                 <div class="mt-4 md:mt-0 flex items-center gap-2">
-                    <span class="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-semibold">
-                        <i class="fa-solid fa-flask mr-1"></i> Data Demo Simulation
+                    <span class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold">
+                        <i class="fa-solid fa-circle text-[8px] animate-pulse mr-1"></i> Live Real-Time Data
                     </span>
                 </div>
             </div>
 
-            <!-- Stats Overview Cards -->
             <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 <div class="glass-card p-6 rounded-2xl border border-slate-800">
-                    <span class="text-xs text-slate-400 font-medium">Total Pemindaian</span>
-                    <div class="text-2xl font-bold text-white mt-2">12,845 <span class="text-xs text-emerald-400 font-normal"><i class="fa-solid fa-arrow-up"></i> +18%</span></div>
+                    <span class="text-xs text-slate-400 font-medium">Total Pemindaian Real-time</span>
+                    <div id="statTotalScan" class="text-2xl font-bold text-white mt-2">Loading...</div>
                 </div>
                 <div class="glass-card p-6 rounded-2xl border border-slate-800">
-                    <span class="text-xs text-slate-400 font-medium">Pengunjung Unik</span>
-                    <div class="text-2xl font-bold text-white mt-2">8,920 <span class="text-xs text-emerald-400 font-normal"><i class="fa-solid fa-arrow-up"></i> +12%</span></div>
+                    <span class="text-xs text-slate-400 font-medium">Perangkat iOS</span>
+                    <div id="statIos" class="text-2xl font-bold text-purple-400 mt-2">0</div>
                 </div>
                 <div class="glass-card p-6 rounded-2xl border border-slate-800">
-                    <span class="text-xs text-slate-400 font-medium">Perangkat Utama</span>
-                    <div class="text-2xl font-bold text-indigo-400 mt-2">Mobile (92%)</div>
+                    <span class="text-xs text-slate-400 font-medium">Perangkat Android</span>
+                    <div id="statAndroid" class="text-2xl font-bold text-indigo-400 mt-2">0</div>
                 </div>
                 <div class="glass-card p-6 rounded-2xl border border-slate-800">
-                    <span class="text-xs text-slate-400 font-medium">Lokasi Teraktif</span>
-                    <div class="text-2xl font-bold text-purple-400 mt-2">Jakarta & Bandung</div>
+                    <span class="text-xs text-slate-400 font-medium">Desktop / Lainnya</span>
+                    <div id="statDesktop" class="text-2xl font-bold text-teal-400 mt-2">0</div>
                 </div>
             </div>
 
-            <!-- Charts Section Grid -->
             <div class="grid lg:grid-cols-3 gap-8">
-                <!-- Line Chart Scan Trend -->
                 <div class="lg:col-span-2 glass-card p-6 rounded-3xl border border-slate-800">
                     <h3 class="text-base font-bold text-white mb-4 flex items-center justify-between">
                         <span>Tren Pemindaian Harian</span>
@@ -364,7 +347,6 @@
                     </div>
                 </div>
 
-                <!-- Doughnut Chart Device Distribution -->
                 <div class="glass-card p-6 rounded-3xl border border-slate-800">
                     <h3 class="text-base font-bold text-white mb-4">Sebaran Perangkat</h3>
                     <div class="h-64 relative flex items-center justify-center">
@@ -375,7 +357,7 @@
         </div>
     </section>
 
-    <!-- SECTION 8: FORM PEMESANAN & KONSULTASI (Terhubung Sheet & WA) -->
+    <!-- SECTION 8: FORM PEMESANAN -->
     <section id="form-pemesanan" class="py-20 bg-[#090c14] border-t border-slate-800 scroll-mt-20">
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
@@ -385,7 +367,6 @@
             </div>
 
             <div class="glass-card p-8 sm:p-10 rounded-3xl border border-slate-800 shadow-2xl relative">
-                <!-- FORM TIDAK DIUBAH PROSES/RUMUS PENYIMPANANNYA -->
                 <form id="leadForm" class="space-y-6">
                     <div>
                         <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Nama Lengkap *</label>
@@ -427,33 +408,14 @@
                         <i class="fa-brands fa-whatsapp text-xl"></i>
                         <span>Konsultasi / Pemesanan via WhatsApp</span>
                     </button>
-                    
-                    <p class="text-center text-xs text-slate-500">
-                        <i class="fa-solid fa-shield-halved mr-1"></i> Data Anda tersimpan secara otomatis dan aman di database kami.
-                    </p>
                 </form>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER -->
     <footer class="py-8 bg-[#0b0f19] border-t border-slate-900 text-center text-xs text-slate-500">
         <p>&copy; 2026 SmartQR Platform. All Rights Reserved.</p>
     </footer>
-
-    <!-- MODAL PREVIEW GAMBAR GALERI -->
-    <div id="imageModal" class="fixed inset-0 z-50 hidden bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4">
-        <div class="relative max-w-3xl w-full glass-card p-2 rounded-2xl border border-slate-800">
-            <button onclick="closeModal()" class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-slate-900/80 text-white flex items-center justify-center hover:bg-red-600 transition">
-                <i class="fa-solid fa-xmark text-lg"></i>
-            </button>
-            <img id="modalImage" src="" alt="Preview SmartQR" class="w-full h-auto max-h-[80vh] object-contain rounded-xl">
-            <div class="p-4 text-center">
-                <h4 id="modalTitle" class="font-bold text-white text-lg mb-1"></h4>
-                <p id="modalDesc" class="text-xs text-slate-400"></p>
-            </div>
-        </div>
-    </div>
 
     <!-- External Script JS -->
     <script src="script.js"></script>
