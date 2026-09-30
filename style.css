@@ -1,32 +1,45 @@
-/* Style Custom untuk SmartQR Dark Premium UI */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Base Styles */
 body {
     font-family: 'Inter', sans-serif;
     background-color: #0b0f19;
+    color: #f8fafc;
 }
 
-/* Background Gradients */
-.hero-gradient {
-    background: radial-gradient(circle at 50% 0%, rgba(30, 27, 75, 0.5) 0%, rgba(11, 15, 25, 1) 70%);
-}
-
+/* Glassmorphic Cards */
 .glass-card {
     background: rgba(15, 23, 42, 0.65);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Background Gradients & Effects */
+.hero-gradient {
+    background: radial-gradient(circle at top center, rgba(79, 70, 229, 0.15) 0%, rgba(11, 15, 25, 1) 70%);
 }
 
 .glow-orb {
     position: absolute;
     border-radius: 50%;
-    filter: blur(120px);
+    filter: blur(100px);
     pointer-events: none;
+    z-index: 0;
 }
 
 .glow-box {
-    box-shadow: 0 0 50px -10px rgba(99, 102, 241, 0.25);
+    box-shadow: 0 0 50px -12px rgba(99, 102, 241, 0.25);
 }
 
-/* Scrollbar Custom */
+/* Smooth Transitions */
+.tab-btn {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
     width: 8px;
 }

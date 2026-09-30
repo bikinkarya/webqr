@@ -1,101 +1,98 @@
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwZVznwLX1WQRKzCoOr1bbAwlcjzOsIhdcEhlhu8u2dEzJIfMCH6sGTm-b3_HURD9PB/exec"; 
-const NOMOR_WA_TUJUAN = "6285353664560";
+document.addEventListener("DOMContentLoaded", () => {
+    // 1. Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+    const mobileLinks = document.querySelectorAll(".mobile-link");
 
-const galleryData = {
-    fashion: [
-        { title: "Kaos & Apparel Custom", desc: "Sablon QR Code di kaos terhubung ke portofolio / katalog outfit.", img: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=600&auto=format&fit=crop" },
-        { title: "Hoodie Streetwear", desc: "Label barcode interaktif pada hoodie menuju promosi eksklusif.", img: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?q=80&w=600&auto=format&fit=crop" },
-        { title: "Topi Distro", desc: "Aksesori fashion modern ber-QR menuju profil komunitas.", img: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?q=80&w=600&auto=format&fit=crop" },
-        { title: "Merchandise Totebag", desc: "Totebag kanvas terhubung ke link diskon belanja pelanggan.", img: "https://images.unsplash.com/photo-1544816155-12df9643f363?q=80&w=600&auto=format&fit=crop" }
-    ],
-    souvenir: [
-        { title: "Gantungan Kunci Akrilik", desc: "Keychain akrilik timbul terhubung langsung ke pesan WhatsApp.", img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop" },
-        { title: "Tumbler Stainless", desc: "Grafir QR Code pada tumbler harian untuk identitas digital.", img: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?q=80&w=600&auto=format&fit=crop" },
-        { title: "Mug Keramik Custom", desc: "Souvenir mug unik terhubung ke video kenangan / ucapan.", img: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=600&auto=format&fit=crop" },
-        { title: "Plakat Akrilik Event", desc: "Plakat penghargaan terintegrasi ke dokumen sertifikat resmi.", img: "https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=600&auto=format&fit=crop" }
-    ],
-    bisnis: [
-        { title: "Kartu Nama Digital NFC/QR", desc: "Satu kartu bisnis elegan menuju link kontak & sosial media.", img: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=600&auto=format&fit=crop" },
-        { title: "Standing Banner Promosi", desc: "Banner X-Stand untuk promo resto mengarahkan ke menu digital.", img: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=600&auto=format&fit=crop" },
-        { title: "Stiker Kemasan Produk", desc: "Stiker packaging produk terhubung ke WhatsApp Order.", img: "https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=600&auto=format&fit=crop" },
-        { title: "Standee Meja Resto/Kasir", desc: "Display akrilik meja kasir untuk link pembayaran & ulasan Google.", img: "https://images.unsplash.com/photo-1556742049-0a670f4a4591?q=80&w=600&auto=format&fit=crop" }
-    ]
-};
+    if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener("click", () => {
+            mobileMenu.classList.toggle("hidden");
+        });
 
-function switchTab(tabKey) {
-    const buttons = document.querySelectorAll('.tab-btn');
-    buttons.forEach(btn => {
-        btn.className = "tab-btn px-6 py-2.5 rounded-full text-sm font-semibold border transition-all duration-300 bg-slate-900 border-slate-800 text-slate-400 hover:text-white";
-    });
-
-    const activeBtn = document.getElementById(`tab-${tabKey}`);
-    if (activeBtn) {
-        activeBtn.className = "tab-btn px-6 py-2.5 rounded-full text-sm font-semibold border transition-all duration-300 bg-indigo-600 border-indigo-500 text-white shadow-lg shadow-indigo-600/30";
+        mobileLinks.forEach(link => {
+            link.addEventListener("click", () => {
+                mobileMenu.classList.add("hidden");
+            });
+        });
     }
 
-    const container = document.getElementById('galleryContainer');
-    const items = galleryData[tabKey] || [];
+    // 2. Data Gallery Segmentasi (Untuk Siapa)
+    const galleryData = {
+        fashion: [
+            { title: "Kaos & Streetwear", desc: "Cetak SmartQR pada label/sablon kaos untuk link katalog eksklusif.", icon: "fa-shirt" },
+            { title: "Jaket & Outerwear", desc: "QR Dinamis pada hangtag jaket yang bisa dihubungkan ke promo musiman.", icon: "fa-vest" },
+            { title: "Topi & Aksesoris", desc: "Sematkan QR pada aksesoris fashion untuk direct link media sosial.", icon: "fa-hat-cowboy" },
+            { title: "Tote Bag Custom", desc: "Cetak QR pada tas kain untuk portofolio brand atau merchandise.", icon: "fa-bag-shopping" }
+        ],
+        souvenir: [
+            { title: "Gantungan Kunci Akrilik", desc: "Souvenir akrilik timbul dengan QR yang langsung menuju chat WA.", icon: "fa-key" },
+            { title: "Mug & Tumbler", desc: "Merchandise kantor dengan QR Code dinamis berisi profil perusahaan.", icon: "fa-glass-water" },
+            { title: "Plakat & Throphy", desc: "Plakat acara dengan QR menuju galeri dokumentasi foto/video.", icon: "fa-award" },
+            { title: "Stiker & Decal", desc: "Stiker custom anti air dengan QR dinamis yang mudah ditempel.", icon: "fa-note-sticky" }
+        ],
+        bisnis: [
+            { title: "Meja Resto & Cafe", desc: "Standee meja akrilik untuk daftar menu digital tanpa ubah fisik.", icon: "fa-utensils" },
+            { title: "Brosur & Banner", desc: "Alat promosi cetak yang selalu terhubung ke halaman promo terbaru.", icon: "fa-scroll" },
+            { title: "Kartu Nama Digital", desc: "Kartu nama eksklusif yang menyimpan kontak langsung ke smartphone.", icon: "fa-address-card" },
+            { title: "Kemasan Produk", desc: "Packaging makanan/barang dengan QR panduan atau autentikasi produk.", icon: "fa-box" }
+        ]
+    };
 
-    container.innerHTML = items.map(item => `
-        <div class="glass-card rounded-2xl overflow-hidden border border-slate-800 hover:border-indigo-500/50 transition group">
-            <div class="h-48 overflow-hidden relative">
-                <img src="${item.img}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                <div class="absolute inset-0 bg-slate-950/30 group-hover:bg-transparent transition"></div>
-            </div>
-            <div class="p-5">
-                <h4 class="font-bold text-white text-base mb-1 group-hover:text-indigo-400 transition">${item.title}</h4>
-                <p class="text-xs text-slate-400 leading-relaxed">${item.desc}</p>
-            </div>
-        </div>
-    `).join('');
-}
-
-function startDemoTimer() {
-    let timeLeft = 300;
-    const timerElem = document.getElementById('demoTimer');
-    setInterval(() => {
-        let minutes = Math.floor(timeLeft / 60);
-        let seconds = timeLeft % 60;
-        minutes = minutes < 10 ? '0' + minutes : minutes;
-        seconds = seconds < 10 ? '0' + seconds : seconds;
-        if (timerElem) timerElem.innerText = `${minutes}:${seconds}`;
-        if (timeLeft <= 0) timeLeft = 300;
-        else timeLeft--;
-    }, 1000);
-}
-
-// Fetch Realtime Analytics dari Apps Script
-function fetchRealtimeAnalytics() {
-    fetch(`${SCRIPT_URL}?action=getAnalytics`)
-        .then(res => res.json())
-        .then(data => {
-            const total = data.totalScan || 0;
-            const ios = data.devices.iOS || 0;
-            const android = data.devices.Android || 0;
-            const desktop = data.devices.Desktop || 0;
-
-            document.getElementById('statTotalScan').innerText = total.toLocaleString();
-            document.getElementById('statIos').innerText = ios;
-            document.getElementById('statAndroid').innerText = android;
-            document.getElementById('statDesktop').innerText = desktop;
-
-            renderCharts(total, ios, android, desktop);
-        })
-        .catch(() => {
-            renderCharts(12, 5, 5, 2);
+    window.switchTab = function(category) {
+        // Toggle Active Tab Button Style
+        document.querySelectorAll(".tab-btn").forEach(btn => {
+            btn.className = "tab-btn px-6 py-2.5 rounded-full text-sm font-semibold border transition-all duration-300 bg-slate-900 border-slate-800 text-slate-400 hover:text-white";
         });
-}
 
-function renderCharts(total, ios, android, desktop) {
-    const ctxTrend = document.getElementById('scanTrendChart');
-    if (ctxTrend) {
-        new Chart(ctxTrend, {
+        const activeBtn = document.getElementById(`tab-${category}`);
+        if (activeBtn) {
+            activeBtn.className = "tab-btn px-6 py-2.5 rounded-full text-sm font-semibold border transition-all duration-300 bg-indigo-600 border-indigo-500 text-white shadow-lg shadow-indigo-600/30";
+        }
+
+        // Render Gallery Items
+        const container = document.getElementById("galleryContainer");
+        if (container && galleryData[category]) {
+            container.innerHTML = galleryData[category].map(item => `
+                <div class="glass-card p-6 rounded-2xl border border-slate-800/80 hover:border-indigo-500/40 transition flex flex-col items-start">
+                    <div class="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center mb-4 text-xl">
+                        <i class="fa-solid ${item.icon}"></i>
+                    </div>
+                    <h3 class="text-base font-bold text-white mb-2">${item.title}</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed">${item.desc}</p>
+                </div>
+            `).join("");
+        }
+    };
+
+    // Load Default Tab
+    switchTab('fashion');
+
+    // 3. Demo Timer Countdown
+    const timerElem = document.getElementById("demoTimer");
+    if (timerElem) {
+        let duration = 300; // 5 menit
+        setInterval(() => {
+            let minutes = Math.floor(duration / 60);
+            let seconds = duration % 60;
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+            timerElem.textContent = `${minutes}:${seconds}`;
+            if (--duration < 0) {
+                duration = 300;
+            }
+        }, 1000);
+    }
+
+    // 4. Render Analytics Charts (Chart.js)
+    const trendCtx = document.getElementById('scanTrendChart');
+    if (trendCtx) {
+        new Chart(trendCtx.getContext('2d'), {
             type: 'line',
             data: {
-                labels: ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'],
+                labels: ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Ming'],
                 datasets: [{
-                    label: 'Scan',
-                    data: [Math.round(total*0.1), Math.round(total*0.15), Math.round(total*0.12), Math.round(total*0.18), Math.round(total*0.2), Math.round(total*0.12), total],
+                    label: 'Jumlah Scan',
+                    data: [120, 190, 300, 250, 420, 550, 480],
                     borderColor: '#6366f1',
                     backgroundColor: 'rgba(99, 102, 241, 0.1)',
                     fill: true,
@@ -114,15 +111,15 @@ function renderCharts(total, ios, android, desktop) {
         });
     }
 
-    const ctxDevice = document.getElementById('deviceChart');
-    if (ctxDevice) {
-        new Chart(ctxDevice, {
+    const deviceCtx = document.getElementById('deviceChart');
+    if (deviceCtx) {
+        new Chart(deviceCtx.getContext('2d'), {
             type: 'doughnut',
             data: {
-                labels: ['iOS', 'Android', 'Desktop/Lainnya'],
+                labels: ['Android', 'iOS', 'Desktop/Lainnya'],
                 datasets: [{
-                    data: [ios, android, desktop],
-                    backgroundColor: ['#8b5cf6', '#6366f1', '#14b8a6'],
+                    data: [55, 35, 10],
+                    backgroundColor: ['#6366f1', '#a855f7', '#14b8a6'],
                     borderWidth: 0
                 }]
             },
@@ -133,60 +130,40 @@ function renderCharts(total, ios, android, desktop) {
             }
         });
     }
-}
 
-document.addEventListener('DOMContentLoaded', () => {
-    switchTab('fashion');
-    startDemoTimer();
-    fetchRealtimeAnalytics();
+    // Update Dummy Realtime Analytics Counter
+    const totalScanElem = document.getElementById("statTotalScan");
+    const iosElem = document.getElementById("statIos");
+    const androidElem = document.getElementById("statAndroid");
+    const desktopElem = document.getElementById("statDesktop");
 
-    const mobileBtn = document.getElementById('mobileMenuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    if (mobileBtn && mobileMenu) {
-        mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-        document.querySelectorAll('.mobile-link').forEach(link => {
-            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
-        });
-    }
+    if (totalScanElem) totalScanElem.textContent = "2,310";
+    if (iosElem) iosElem.textContent = "808";
+    if (androidElem) androidElem.textContent = "1,270";
+    if (desktopElem) desktopElem.textContent = "232";
 
-    const leadForm = document.getElementById('leadForm');
+    // 5. WhatsApp Form Lead Handling
+    const leadForm = document.getElementById("leadForm");
     if (leadForm) {
-        leadForm.addEventListener('submit', function(e) {
+        leadForm.addEventListener("submit", (e) => {
             e.preventDefault();
-            const submitBtn = document.getElementById('submitBtn');
-            const originalText = submitBtn.innerHTML;
-            
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> <span>Menyimpan Data...</span>`;
+            const formData = new FormData(leadForm);
+            const nama = formData.get("nama");
+            const whatsapp = formData.get("whatsapp");
+            const bisnis = formData.get("bisnis");
+            const kebutuhan = formData.get("kebutuhan");
+            const pesan = formData.get("pesan") || "-";
 
-            const formData = new FormData(this);
-            const data = {
-                nama: formData.get('nama'),
-                whatsapp: formData.get('whatsapp'),
-                bisnis: formData.get('bisnis') || '-',
-                kebutuhan: formData.get('kebutuhan'),
-                pesan: formData.get('pesan') || '-'
-            };
+            const text = `Halo Admin SmartQR, saya ingin konsultasi/pemesanan:%0A%0A` +
+                         `*Nama:* ${nama}%0A` +
+                         `*No. WA:* ${whatsapp}%0A` +
+                         `*Jenis Pelanggan:* ${bisnis}%0A` +
+                         `*Kebutuhan:* ${kebutuhan}%0A` +
+                         `*Catatan:* ${pesan}`;
 
-            fetch(SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: new URLSearchParams(data)
-            })
-            .then(() => {
-                const textWA = `Halo, saya *${data.nama}* (${data.bisnis}).\n\n*Kebutuhan:* ${data.kebutuhan}\n*No. WA:* ${data.whatsapp}\n*Catatan:* ${data.pesan}\n\nSaya berminat dengan SmartQR dan ingin konsultasi lebih lanjut.`;
-                window.open(`https://wa.me/${NOMOR_WA_TUJUAN}?text=${encodeURIComponent(textWA)}`, '_blank');
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = originalText;
-                this.reset();
-            })
-            .catch(() => {
-                const textWA = `Halo, saya *${data.nama}* (${data.bisnis}). Saya ingin konsultasi SmartQR.`;
-                window.open(`https://wa.me/${NOMOR_WA_TUJUAN}?text=${encodeURIComponent(textWA)}`, '_blank');
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = originalText;
-            });
+            // Ganti nomor WhatsApp tujuan di bawah ini (Gunakan kode negara 62)
+            const targetWaNumber = "6281234567890"; 
+            window.open(`https://wa.me/${targetWaNumber}?text=${text}`, '_blank');
         });
     }
 });
