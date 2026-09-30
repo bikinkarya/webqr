@@ -2,7 +2,7 @@
 // 1. KONFIGURASI PROSES DATABASE & WHATSAPP
 // ==========================================
 // Keduanya dipertahankan 100% tanpa diubah
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxZDrVyLA8q4ky-Fg0qq64njfIvVWt8FshOBtCTtL9wQApdqiJgOy4mJytap3NdvUuc/exec"; 
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxdUclcFRqNlvfYxQ8LcCoDFnz0nZYBbU8DJDAtBLfdz-BgnYV1n6PxZsWxi8Yaxujb/exec"; 
 const NOMOR_WA_TUJUAN = "6285353664560";
 
 // ==========================================
