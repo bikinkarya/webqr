@@ -65,11 +65,13 @@
     </nav>
 
     <!-- SECTION 1: HERO SECTION -->
-    <section id="beranda" class="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden hero-gradient">
+    <section id="beranda" class="relative pt-32 pb-20 md:pt-36 md:pb-28 overflow-hidden hero-gradient">
         <div class="glow-orb w-[500px] h-[500px] bg-indigo-600/20 -top-20 left-1/2 -translate-x-1/2"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
-                <div>
+            <div class="grid lg:grid-cols-12 gap-8 items-center">
+                
+                <!-- Teks Hero (Diselaraskan Sejajar & Memanjang) -->
+                <div class="lg:col-span-8">
                     <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold uppercase tracking-wider mb-6">
                         <span class="w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></span>
                         Next-Gen Dynamic QR Technology
@@ -77,7 +79,7 @@
                     <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-[1.15] mb-6">
                         QR Biasa Berhenti di Link. <span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Smart QR Terus Bergerak.</span>
                     </h1>
-                    <p class="text-slate-400 text-base sm:text-lg leading-relaxed mb-8 max-w-xl">
+                    <p class="text-slate-400 text-base sm:text-lg leading-relaxed mb-8 max-w-2xl">
                         Smart QR adalah solusi QR Code dinamis yang bisa Anda ubah kapan saja tanpa perlu mencetak ulang. Cocok untuk percetakan, merchandise, souvenir, digital print, banner, hingga cafe dan restoran.
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4">
@@ -92,20 +94,21 @@
                     </div>
                 </div>
 
-                <!-- Hero Visual Mockup -->
-                <div class="relative lg:ml-auto w-full max-w-md">
-                    <div class="glass-card rounded-3xl p-6 border border-slate-800 glow-box relative overflow-hidden">
-                        <div class="relative bg-slate-900/90 rounded-2xl p-6 border border-slate-800 text-center">
-                            <div class="w-48 h-48 mx-auto bg-white p-4 rounded-2xl shadow-2xl relative mb-4 flex items-center justify-center border-4 border-slate-700/50">
-                                <img id="heroQrCode" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://smart-qr-code-iota.vercel.app/logscan.html&color=0b0f19" alt="SmartQR Acrylic Display" class="w-full h-full rounded-lg">
+                <!-- Hero Mockup Display (Barcode Dihapus) -->
+                <div class="lg:col-span-4 w-full flex justify-center lg:justify-end">
+                    <div class="glass-card rounded-3xl p-6 border border-slate-800 glow-box relative overflow-hidden w-full max-w-sm text-center">
+                        <div class="relative bg-slate-900/90 rounded-2xl p-8 border border-slate-800 text-center flex flex-col items-center justify-center min-h-[260px]">
+                            <div class="w-16 h-16 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center text-3xl mb-4">
+                                <i class="fa-solid fa-qrcode"></i>
                             </div>
                             <span class="inline-block px-3 py-1 bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 rounded-full text-xs font-mono font-medium mb-2">
                                 <i class="fa-solid fa-layer-group mr-1"></i> Standee Akrilik Bening Meja
                             </span>
-                            <p class="text-xs text-slate-400">Terhubung langsung dengan Panel Kontrol Cloud SmartQR</p>
+                            <p class="text-xs text-slate-400 mt-2">Terhubung langsung dengan Panel Kontrol Cloud SmartQR</p>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
@@ -280,21 +283,22 @@
                     <p class="text-slate-400 text-sm leading-relaxed mb-6">
                         Pindai QR Code di sebelah kanan menggunakan kamera HP Anda! QR ini mengarahkan ke sistem berita acak terupdate dari database spreadsheet Anda secara dinamis.
                     </p>
-                    <div class="mb-8">
-                        <div class="flex items-center justify-between p-5 rounded-2xl bg-slate-900/90 border border-slate-800 max-w-md">
-                            <span class="text-sm text-slate-300 font-semibold">Hitung Mundur Rotasi Otomatis:</span>
-                            <span id="demoTimer" class="font-mono font-bold text-xl text-amber-400 bg-amber-400/10 px-4 py-1.5 rounded-xl border border-amber-400/20">05:00</span>
-                        </div>
-                    </div>
                 </div>
 
-                <!-- QR Demo Display Card -->
-                <div class="glass-card p-8 rounded-3xl border border-slate-800 text-center glow-box relative">
-                    <div class="p-4 bg-white rounded-2xl w-56 h-56 mx-auto mb-6 shadow-2xl relative group">
+                <!-- QR Demo Display Card & Countdown (Sejajar di Bawah Smart QR) -->
+                <div class="glass-card p-8 rounded-3xl border border-slate-800 text-center glow-box relative flex flex-col items-center justify-center">
+                    <div class="p-4 bg-white rounded-2xl w-56 h-56 mx-auto mb-6 shadow-2xl relative">
                         <img id="demoQrImage" src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=https://smart-qr-code-iota.vercel.app/logscan.html&color=0b0f19" alt="SmartQR Dynamic Live Demo" class="w-full h-full rounded-lg">
                     </div>
+                    
                     <h3 class="text-white font-bold text-lg mb-1">Dynamic Live Demo QR</h3>
-                    <p class="text-xs text-slate-400 max-w-xs mx-auto">Scan QR ini sekarang untuk menguji pengalihan link otomatis ke portal berita dan pencatatan log scan.</p>
+                    <p class="text-xs text-slate-400 max-w-xs mx-auto mb-6">Scan QR ini sekarang untuk menguji pengalihan link otomatis ke portal berita dan pencatatan log scan.</p>
+                    
+                    <!-- Countdown Dipindah Tepat di Bawah QR & Sejajar -->
+                    <div class="w-full max-w-xs flex flex-col items-center justify-center p-4 rounded-2xl bg-slate-900/90 border border-slate-800">
+                        <span class="text-xs text-slate-300 font-semibold mb-2">Hitung Mundur Rotasi Otomatis:</span>
+                        <span id="demoTimer" class="font-mono font-bold text-xl text-amber-400 bg-amber-400/10 px-6 py-1.5 rounded-xl border border-amber-400/20">05:00</span>
+                    </div>
                 </div>
             </div>
         </div>
